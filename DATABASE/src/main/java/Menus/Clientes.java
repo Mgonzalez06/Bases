@@ -44,7 +44,7 @@ public class Clientes extends javax.swing.JFrame {
         r_ins = new javax.swing.JRadioButton();
         r_mod = new javax.swing.JRadioButton();
         r_sus = new javax.swing.JRadioButton();
-        jButton2 = new javax.swing.JButton();
+        continuar = new javax.swing.JButton();
         r_lis = new javax.swing.JRadioButton();
         atras = new javax.swing.JButton();
 
@@ -89,15 +89,15 @@ public class Clientes extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Continuar");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        continuar.setText("Continuar");
+        continuar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                continuarMouseClicked(evt);
             }
         });
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        continuar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                continuarActionPerformed(evt);
             }
         });
 
@@ -137,7 +137,7 @@ public class Clientes extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(atras)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(continuar)
                 .addGap(19, 19, 19))
             .addGroup(layout.createSequentialGroup()
                 .addGap(173, 173, 173)
@@ -163,7 +163,7 @@ public class Clientes extends javax.swing.JFrame {
                 .addComponent(r_lis)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
+                    .addComponent(continuar)
                     .addComponent(atras))
                 .addGap(18, 18, 18))
         );
@@ -171,9 +171,9 @@ public class Clientes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void continuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continuarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_continuarActionPerformed
 
     private void atrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atrasMouseClicked
         // TODO add your handling code here:
@@ -227,12 +227,11 @@ public class Clientes extends javax.swing.JFrame {
         r_sus.setSelected(false);
      
     }//GEN-LAST:event_r_lisMouseClicked
-
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    public void instruccionesCliente(){
         if (r_per.isSelected()==true){
             if(r_ins.isSelected()==true){
                 ventanas.getVentanaIP().setVisible(true);
-               
+                ventanas.getVentanaIP().ventanaC=this;
                 this.dispose();
             }
             else if(r_mod.isSelected()==true){
@@ -244,7 +243,12 @@ public class Clientes extends javax.swing.JFrame {
                 ventanas.getVentanaSP().setVisible(true);
                 ventanas.getVentanaSP().ventanaC=this;
                 this.dispose();
-            }    
+            }   
+            else if(r_lis.isSelected()==true){
+                ventanas.getVentanaLP().setVisible(true);
+                ventanas.getVentanaLP().ventanaC=this;
+                this.dispose();
+            }
         }
         else if(r_org.isSelected()==true){
             if(r_ins.isSelected()==true){
@@ -263,7 +267,10 @@ public class Clientes extends javax.swing.JFrame {
                 this.dispose();
             }
         }
-    }//GEN-LAST:event_jButton2MouseClicked
+    }
+    private void continuarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_continuarMouseClicked
+        instruccionesCliente();
+    }//GEN-LAST:event_continuarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -302,7 +309,7 @@ public class Clientes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton atras;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton continuar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JRadioButton r_ins;
     private javax.swing.JRadioButton r_lis;

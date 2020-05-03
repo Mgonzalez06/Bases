@@ -1,4 +1,5 @@
 Personas\ModificarPersona.class
+Personas\ListarPersonas$3.class
 Partes\BorrarParte.class
 Ordenes\Ordenes.class
 Partes\Partes$3.class
@@ -9,22 +10,23 @@ Personas\InsertarPersona$4.class
 Organizaciones\ModificarOrganización$10.class
 Organizaciones\ModificarOrganización$1.class
 Ordenes\InsertarOrden$1.class
-Partes\InsertarParte$2.class
+Datos\RetrieveResultSet.class
+Ordenes\InsertarParteOrden.class
 Menus\CrearVentanasOrdenes.class
 Ordenes\InsertarOrden.class
 Personas\InsertarPersona$1.class
+Datos\BorrarDatos.class
 Partes\Partes$12.class
 Partes\Partes$6.class
 Personas\InsertarPersona.class
 Organizaciones\ModificarOrganización$4.class
 Ordenes\InsertarOrden$4.class
 Ordenes\Ordenes$1.class
+Ordenes\InsertarParteOrden$2.class
 Organizaciones\InsertarOrganización$2.class
 Ordenes\Ordenes$4.class
-Ordenes\DetalleOrden$1.class
 Organizaciones\ModificarOrganización$7.class
 Partes\ListarPartes$1.class
-Partes\InsertarParte.class
 Personas\SuspenderPersona$2.class
 Menus\Clientes$1.class
 Ordenes\LocalizarProveedores$1.class
@@ -35,7 +37,6 @@ Menus\Clientes$4.class
 Partes\Partes$10.class
 Main.class
 Personas\ModificarPersona$6.class
-Ordenes\DetalleOrden.class
 Ordenes\InsertarOrden$6.class
 Partes\InsertarParte$4.class
 Organizaciones\ModificarOrganización$6.class
@@ -43,6 +44,7 @@ Partes\ListarPartes$2.class
 Organizaciones\InsertarOrganización.class
 Menus\Menu$3.class
 Partes\BorrarParte$1.class
+Personas\ListarPersonas$2.class
 Menus\Clientes$3.class
 Organizaciones\SuspenderOrganización.class
 Organizaciones\InsertarOrganización$1.class
@@ -50,6 +52,7 @@ Menus\Clientes$9.class
 Partes\Partes$11.class
 Ordenes\Ordenes$3.class
 Partes\Partes$5.class
+Personas\InsertarPersona$5.class
 Organizaciones\ModificarOrganización$5.class
 Partes\InsertarParte$3.class
 Menus\Menu$4.class
@@ -59,9 +62,11 @@ Personas\SuspenderPersona$1.class
 Organizaciones\ModificarOrganización$8.class
 Personas\ModificarPersona$1.class
 Ordenes\InsertarOrden$5.class
+Ordenes\InsertarParteOrden$1.class
 Ordenes\LocalizarProveedores$2.class
 Menus\Clientes$2.class
 Partes\Partes.class
+Ordenes\InsertarOrden$8.class
 Ordenes\Ordenes$2.class
 Ordenes\LocalizarProveedores.class
 Partes\Partes$13.class
@@ -77,6 +82,8 @@ Menus\Clientes$8.class
 Menus\CrearVentanasPartes.class
 Organizaciones\ModificarOrganización.class
 Partes\Partes$7.class
+Personas\ListarPersonas.class
+Personas\ListarPersonas$1.class
 Personas\InsertarPersona$2.class
 Partes\Partes$8.class
 Organizaciones\InsertarOrganización$3.class

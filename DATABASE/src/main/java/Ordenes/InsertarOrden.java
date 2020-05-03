@@ -68,9 +68,14 @@ public class InsertarOrden extends javax.swing.JFrame {
 
         jLabel6.setText("Monto total:");
 
-        jButton1.setText("Agregar detalle");
+        jButton1.setText("Agregar parte");
 
-        jButton2.setText("Insertar");
+        jButton2.setText("Ejecutar");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         jLabel7.setText("Detalles:");
 
@@ -218,6 +223,10 @@ public class InsertarOrden extends javax.swing.JFrame {
         ventanaO.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+         // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2MouseClicked
 
     /**
      * @param args the command line arguments

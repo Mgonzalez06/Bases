@@ -4,9 +4,7 @@ package Menus;
 import Organizaciones.InsertarOrganización;
 import Organizaciones.ModificarOrganización;
 import Organizaciones.SuspenderOrganización;
-import Personas.InsertarPersona;
-import Personas.ModificarPersona;
-import Personas.SuspenderPersona;
+import Personas.*;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,14 +20,17 @@ public class CrearVentanasClientes {
     InsertarPersona ventanaIP;
     ModificarPersona ventanaMP;
     SuspenderPersona ventanaSP;
+    ListarPersonas ventanaLP;
     InsertarOrganización ventanaIO;
     ModificarOrganización ventanaMO;
     SuspenderOrganización ventanaSO;
+    
 
     public CrearVentanasClientes() {
         this.ventanaIP=new InsertarPersona();
         this.ventanaMP= new ModificarPersona();
         this.ventanaSP=  new SuspenderPersona();
+        this.ventanaLP= new ListarPersonas();
         this.ventanaIO = new InsertarOrganización();
         this.ventanaMO = new ModificarOrganización();
         this.ventanaSO = new SuspenderOrganización();
@@ -45,6 +46,10 @@ public class CrearVentanasClientes {
 
     public SuspenderPersona getVentanaSP() {
         return ventanaSP;
+    }
+
+    public ListarPersonas getVentanaLP() {
+        return ventanaLP;
     }
 
     public InsertarOrganización getVentanaIO() {
@@ -69,6 +74,10 @@ public class CrearVentanasClientes {
 
     public void setVentanaSP(SuspenderPersona ventanaSP) {
         this.ventanaSP = ventanaSP;
+    }
+
+    public void setVentanaLP(ListarPersonas ventanaLP) {
+        this.ventanaLP = ventanaLP;
     }
 
     public void setVentanaIO(InsertarOrganización ventanaIO) {

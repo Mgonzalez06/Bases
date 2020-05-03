@@ -1,10 +1,11 @@
 C:\Users\Liseth\Documents\NetBeansProjects\DATABASE\src\main\java\Menus\Clientes.java
 C:\Users\Liseth\Documents\NetBeansProjects\DATABASE\src\main\java\Partes\ListarPartes.java
 C:\Users\Liseth\Documents\NetBeansProjects\DATABASE\src\main\java\Menus\CrearVentanasClientes.java
-C:\Users\Liseth\Documents\NetBeansProjects\DATABASE\src\main\java\Ordenes\DetalleOrden.java
 C:\Users\Liseth\Documents\NetBeansProjects\DATABASE\src\main\java\Organizaciones\ModificarOrganización.java
 C:\Users\Liseth\Documents\NetBeansProjects\DATABASE\src\main\java\Menus\Menu.java
 C:\Users\Liseth\Documents\NetBeansProjects\DATABASE\src\main\java\Partes\Partes.java
+C:\Users\Liseth\Documents\NetBeansProjects\DATABASE\src\main\java\Datos\BorrarDatos.java
+C:\Users\Liseth\Documents\NetBeansProjects\DATABASE\src\main\java\Personas\ListarPersonas.java
 C:\Users\Liseth\Documents\NetBeansProjects\DATABASE\src\main\java\Menus\CrearVentanasPartes.java
 C:\Users\Liseth\Documents\NetBeansProjects\DATABASE\src\main\java\Partes\BorrarParte.java
 C:\Users\Liseth\Documents\NetBeansProjects\DATABASE\src\main\java\Partes\InsertarParte.java
@@ -18,4 +19,6 @@ C:\Users\Liseth\Documents\NetBeansProjects\DATABASE\src\main\java\Menus\CrearVen
 C:\Users\Liseth\Documents\NetBeansProjects\DATABASE\src\main\java\Ordenes\Ordenes.java
 C:\Users\Liseth\Documents\NetBeansProjects\DATABASE\src\main\java\Organizaciones\InsertarOrganización.java
 C:\Users\Liseth\Documents\NetBeansProjects\DATABASE\src\main\java\Personas\ModificarPersona.java
+C:\Users\Liseth\Documents\NetBeansProjects\DATABASE\src\main\java\Ordenes\InsertarParteOrden.java
+C:\Users\Liseth\Documents\NetBeansProjects\DATABASE\src\main\java\Datos\RetrieveResultSet.java
 C:\Users\Liseth\Documents\NetBeansProjects\DATABASE\src\main\java\Conexion\Conexion.java

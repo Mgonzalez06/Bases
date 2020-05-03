@@ -24,32 +24,29 @@ public class InsertarPersona extends javax.swing.JFrame {
         initComponents();
     }
     void Registrar(){
-        String insertar = "insert into persona (cedula,nombreC,telefonos,direccionE,ciudad)values (?,?,?,?,?)";
-        try{
+        String insertar = "insert into persona (cedula,nombreC,direccionE,ciudad)values (?,?,?,?)";
+        try
+        {
             Connection cin = coneccion.Entrar(); 
             ps = cin.prepareCall(insertar);
             ps.setString(1,t_ced.getText());
             ps.setString(2,t_nom.getText());
-            ps.setString(3,t_tce.getText());
-            ps.setString(4,t_dir.getText());
-            ps.setString(5,t_ciu.getText());
+            ps.setString(3,t_dir.getText());
+            ps.setString(4,t_ciu.getText());
             int registro = ps.executeUpdate();
             
-            if(registro>0){
-                cin.close();
-                coneccion.Cerrar();
+            if(registro>0){                
                 JOptionPane.showMessageDialog(this,"Se registro","Bien",JOptionPane.QUESTION_MESSAGE);
             }
-            else{
-                cin.close();
-                coneccion.Cerrar();
-                
+            else{                
                 JOptionPane.showMessageDialog(this,"Se registro","Bien",JOptionPane.ERROR_MESSAGE);     
-            }
-                    }
-        catch(Exception e){
+            }                   
+        }
+        catch(Exception e)
+        {
             
         }
+        registrarTelefonos();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -68,14 +65,12 @@ public class InsertarPersona extends javax.swing.JFrame {
         t_ced = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        t_tca = new javax.swing.JTextField();
+        t_tel = new javax.swing.JTextField();
         t_ciu = new javax.swing.JTextField();
-        t_tce = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        insertarPersona = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        atrasInsertarPersona = new javax.swing.JButton();
+        agregarTelefonos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,24 +90,27 @@ public class InsertarPersona extends javax.swing.JFrame {
 
         jLabel5.setText("Teléfonos");
 
-        jLabel6.setText("Casa:");
-
-        jLabel7.setText("Celular:");
-
-        jButton1.setText("Insertar");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        insertarPersona.setText("Insertar");
+        insertarPersona.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                insertarPersonaMouseClicked(evt);
             }
         });
 
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel8.setText("Insertar persona nueva");
 
-        jButton2.setText("Atrás");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        atrasInsertarPersona.setText("Atrás");
+        atrasInsertarPersona.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                atrasInsertarPersonaMouseClicked(evt);
+            }
+        });
+
+        agregarTelefonos.setText("Agregar");
+        agregarTelefonos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                agregarTelefonosMouseClicked(evt);
             }
         });
 
@@ -121,17 +119,23 @@ public class InsertarPersona extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(atrasInsertarPersona)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(insertarPersona)
                 .addGap(59, 59, 59))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addComponent(jLabel8))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(t_tel, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addComponent(jLabel1)
@@ -146,23 +150,11 @@ public class InsertarPersona extends javax.swing.JFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(t_dir, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(t_ced, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(t_ciu, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel7)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addComponent(jLabel6)
-                                            .addGap(189, 189, 189)))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(t_tca, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-                                        .addComponent(t_tce))
-                                    .addGap(86, 86, 86)))))
+                                        .addComponent(t_ciu, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(148, 148, 148)
-                        .addComponent(jLabel8)))
-                .addGap(98, 98, 98))
+                        .addGap(118, 118, 118)
+                        .addComponent(agregarTelefonos)))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,20 +177,16 @@ public class InsertarPersona extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(t_ciu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(t_tel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(agregarTelefonos)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(t_tca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(t_tce, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(insertarPersona)
+                    .addComponent(atrasInsertarPersona))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -208,21 +196,52 @@ public class InsertarPersona extends javax.swing.JFrame {
     private void t_nomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_nomActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_t_nomActionPerformed
-
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-       ventanaC.setVisible(true);
-       this.dispose();
+    private void limpiar(){
        t_nom.setText("");
        t_ced.setText("");
        t_dir.setText("");
        t_ciu.setText("");
-       t_tca.setText("");
-       t_tce.setText("");
-    }//GEN-LAST:event_jButton2MouseClicked
+       t_tel.setText("");
+    }
+    private void atrasInsertarPersonaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atrasInsertarPersonaMouseClicked
+       limpiar();
+       ventanaC.setVisible(true);
+       this.dispose();
+       
+       
+    }//GEN-LAST:event_atrasInsertarPersonaMouseClicked
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void insertarPersonaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertarPersonaMouseClicked
        Registrar();
-    }//GEN-LAST:event_jButton1MouseClicked
+       limpiar();
+    }//GEN-LAST:event_insertarPersonaMouseClicked
+    private void registrarTelefonos(){
+        if(t_tel.getText()!=""){
+            String telefono = "insert into telefonosPersona(numero,cedulaP)values (?,?)";
+            try{
+                Connection cin = coneccion.Entrar(); 
+                ps = cin.prepareCall(telefono);
+                ps.setString(1,t_tel.getText());
+                ps.setString(2,t_ced.getText());                   
+                int registro = ps.executeUpdate();           
+                if(registro>0){
+
+                    JOptionPane.showMessageDialog(this,"Se registro","Bien",JOptionPane.QUESTION_MESSAGE);
+                }
+                else{
+
+                    JOptionPane.showMessageDialog(this,"Se registro","Bien",JOptionPane.ERROR_MESSAGE);     
+                }
+                        }
+            catch(Exception e){
+
+            }
+        }
+    }
+    private void agregarTelefonosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarTelefonosMouseClicked
+        registrarTelefonos();
+        t_tel.setText("");
+    }//GEN-LAST:event_agregarTelefonosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -260,21 +279,19 @@ public class InsertarPersona extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton agregarTelefonos;
+    private javax.swing.JButton atrasInsertarPersona;
+    private javax.swing.JButton insertarPersona;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField t_ced;
     private javax.swing.JTextField t_ciu;
     private javax.swing.JTextField t_dir;
     private javax.swing.JTextField t_nom;
-    private javax.swing.JTextField t_tca;
-    private javax.swing.JTextField t_tce;
+    private javax.swing.JTextField t_tel;
     // End of variables declaration//GEN-END:variables
 }

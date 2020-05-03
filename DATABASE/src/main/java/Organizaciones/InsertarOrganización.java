@@ -29,7 +29,7 @@ public class InsertarOrganización extends javax.swing.JFrame {
     }
 
    void Insertar(){
-        String insertar = "insert into organizacion (cedulaJ,nombre,direccionE,ciudad)values (?,?,?,?)";
+        String insertar = "insert into organizacion (cedulaJ,nombre,direccionE,ciudad,nombreCC,telefonoC,cargoC)values (?,?,?,?,?,?,?)";
         try{
             Connection cin = coneccion.Entrar();
             pS = cin.prepareCall(insertar);
@@ -37,14 +37,17 @@ public class InsertarOrganización extends javax.swing.JFrame {
             pS.setString(2,t_nom.getText());
             pS.setString(3,t_dir.getText());
             pS.setString(4,t_ciu.getText());
+            pS.setString(5, t_noc.getText());
+            pS.setString(6,t_tel.getText());
+            pS.setString(7,t_car.getText());
             int registro = pS.executeUpdate();
             if(registro>0){
-                JOptionPane.showMessageDialog(this,"Se registro","Bien",JOptionPane.QUESTION_MESSAGE);
-                
+                cin.close();
+                JOptionPane.showMessageDialog(this,"Se registro","Bien",JOptionPane.QUESTION_MESSAGE);              
             }
             else{
-                JOptionPane.showMessageDialog(this,"Se registro","Bien",JOptionPane.ERROR_MESSAGE); 
-               
+                cin.close();
+                JOptionPane.showMessageDialog(this,"Se registro","Bien",JOptionPane.ERROR_MESSAGE);               
             }
         }
         catch(Exception e){
