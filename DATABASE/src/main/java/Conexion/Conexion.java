@@ -20,11 +20,10 @@ public class Conexion {
         try{
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             cn=DriverManager.getConnection("jdbc:sqlserver://LISETHGF:1433;DatabaseName = ventaRepuestos;user =sa"
-                    + ";password= 012345");
-            JOptionPane.showMessageDialog(null,"Conecto");
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null,"No conecto");
-            
+                    + ";password= 012345");         
+        }
+        catch(Exception e)
+        {      
         }
         return cn;
     }

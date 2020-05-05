@@ -1,4 +1,5 @@
 package Organizaciones;
+import Datos.ManipularDatos;
 import Menus.Clientes;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,8 +16,10 @@ public class SuspenderOrganización extends javax.swing.JFrame {
     /**
      * Creates new form SuspenderOrganización
      */
+    ManipularDatos datos;
     public Clientes ventanaC;
     public SuspenderOrganización() {
+        this.datos = new ManipularDatos();
         initComponents();
     }
 
@@ -32,16 +35,16 @@ public class SuspenderOrganización extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        t_ced = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        existente = new javax.swing.JTextArea();
+        examinar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        r_activo = new javax.swing.JRadioButton();
+        r_inactivo = new javax.swing.JRadioButton();
+        r_suspendido = new javax.swing.JRadioButton();
+        modificar = new javax.swing.JButton();
+        atras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,27 +56,52 @@ public class SuspenderOrganización extends javax.swing.JFrame {
 
         jLabel3.setText("Cédula jurídica:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        existente.setColumns(20);
+        existente.setRows(5);
+        jScrollPane1.setViewportView(existente);
 
-        jButton1.setText("Examinar");
+        examinar.setText("Examinar");
+        examinar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                examinarMouseClicked(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setText("Cambiar estado");
 
-        jRadioButton1.setText("Activo");
-
-        jRadioButton2.setText("Inactivo");
-
-        jRadioButton3.setText("Suspendido");
-
-        jButton2.setText("Modificar");
-
-        jButton3.setText("Atrás");
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+        r_activo.setText("Activo");
+        r_activo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton3MouseClicked(evt);
+                r_activoMouseClicked(evt);
+            }
+        });
+
+        r_inactivo.setText("Inactivo");
+        r_inactivo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                r_inactivoMouseClicked(evt);
+            }
+        });
+
+        r_suspendido.setText("Suspendido");
+        r_suspendido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                r_suspendidoMouseClicked(evt);
+            }
+        });
+
+        modificar.setText("Modificar");
+        modificar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                modificarMouseClicked(evt);
+            }
+        });
+
+        atras.setText("Atrás");
+        atras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                atrasMouseClicked(evt);
             }
         });
 
@@ -89,9 +117,9 @@ public class SuspenderOrganización extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton3)
+                        .addComponent(atras)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
+                        .addComponent(modificar))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,13 +128,13 @@ public class SuspenderOrganización extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel3)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(t_ced, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRadioButton2)
-                                    .addComponent(jRadioButton3)
-                                    .addComponent(jRadioButton1))
+                                    .addComponent(r_inactivo)
+                                    .addComponent(r_suspendido)
+                                    .addComponent(r_activo))
                                 .addGap(24, 24, 24))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
@@ -114,7 +142,7 @@ public class SuspenderOrganización extends javax.swing.JFrame {
                                 .addComponent(jLabel4))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(141, 141, 141)
-                        .addComponent(jButton1)
+                        .addComponent(examinar)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(55, 55, 55))
         );
@@ -132,29 +160,74 @@ public class SuspenderOrganización extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jRadioButton1))
+                            .addComponent(t_ced, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(r_activo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
-                    .addComponent(jRadioButton2))
+                        .addComponent(examinar))
+                    .addComponent(r_inactivo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton3)
+                    .addComponent(r_suspendido)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(modificar)
+                    .addComponent(atras))
                 .addGap(27, 27, 27))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+    private void limpiar(){
+        t_ced.setText("");
+        existente.setText("");
+        r_activo.setSelected(false);
+        r_inactivo.setSelected(false);
+        r_suspendido.setSelected(false);
+                
+    }
+    private void atrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atrasMouseClicked
+        limpiar();
         ventanaC.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton3MouseClicked
+    }//GEN-LAST:event_atrasMouseClicked
+    private void verOrganizacion(){
+        datos.leerDatosEspecificos("organizacion","cedulaJ",t_ced.getText());
+        datos.verDatosEspecificosOrganizacion(existente);
+        datos.cerrarConexion();
+    }
+    private void examinarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_examinarMouseClicked
+        verOrganizacion();
+    }//GEN-LAST:event_examinarMouseClicked
+
+    private void r_activoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_r_activoMouseClicked
+        r_inactivo.setSelected(false);
+        r_suspendido.setSelected(false);
+    }//GEN-LAST:event_r_activoMouseClicked
+
+    private void r_inactivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_r_inactivoMouseClicked
+       r_activo.setSelected(false);
+       r_suspendido.setSelected(false);
+    }//GEN-LAST:event_r_inactivoMouseClicked
+
+    private void r_suspendidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_r_suspendidoMouseClicked
+        r_inactivo.setSelected(false);
+        r_activo.setSelected(false);
+    }//GEN-LAST:event_r_suspendidoMouseClicked
+    private void cambiarEstado(){
+        if(r_activo.isSelected()==true){
+            datos.cambiarEstadoCliente("organizacion","ACTIVO","cedulaJ", t_ced.getText());
+        }
+        else if(r_inactivo.isSelected()==true){
+             datos.cambiarEstadoCliente("organizacion","INACTIVO","cedulaJ", t_ced.getText());
+        }
+        else if(r_suspendido.isSelected()==true){
+             datos.cambiarEstadoCliente("organizacion","SUSPENDIDO","cedulaJ", t_ced.getText());
+        }
+    }
+    private void modificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modificarMouseClicked
+        cambiarEstado();
+    }//GEN-LAST:event_modificarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -192,18 +265,18 @@ public class SuspenderOrganización extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton atras;
+    private javax.swing.JButton examinar;
+    private javax.swing.JTextArea existente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton modificar;
+    private javax.swing.JRadioButton r_activo;
+    private javax.swing.JRadioButton r_inactivo;
+    private javax.swing.JRadioButton r_suspendido;
+    private javax.swing.JTextField t_ced;
     // End of variables declaration//GEN-END:variables
 }

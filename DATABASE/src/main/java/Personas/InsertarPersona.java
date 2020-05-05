@@ -1,8 +1,13 @@
 package Personas;
 import Menus.Clientes;
 import Conexion.Conexion;
+import Datos.ManipularDatos;
+import Menus.ManipularClientes;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -14,39 +19,15 @@ import javax.swing.JOptionPane;
  * @author Liseth
  */
 public class InsertarPersona extends javax.swing.JFrame {
-
-    
-    Conexion coneccion= new Conexion();
-   
+    ManipularDatos datos;
     public Clientes ventanaC;
-    PreparedStatement ps;
     public InsertarPersona() {
+        this.datos = new ManipularDatos();
         initComponents();
     }
-    void Registrar(){
-        String insertar = "insert into persona (cedula,nombreC,direccionE,ciudad)values (?,?,?,?)";
-        try
-        {
-            Connection cin = coneccion.Entrar(); 
-            ps = cin.prepareCall(insertar);
-            ps.setString(1,t_ced.getText());
-            ps.setString(2,t_nom.getText());
-            ps.setString(3,t_dir.getText());
-            ps.setString(4,t_ciu.getText());
-            int registro = ps.executeUpdate();
-            
-            if(registro>0){                
-                JOptionPane.showMessageDialog(this,"Se registro","Bien",JOptionPane.QUESTION_MESSAGE);
-            }
-            else{                
-                JOptionPane.showMessageDialog(this,"Se registro","Bien",JOptionPane.ERROR_MESSAGE);     
-            }                   
-        }
-        catch(Exception e)
-        {
-            
-        }
-        registrarTelefonos();
+    
+    void RegistrarPersona(){
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -204,42 +185,20 @@ public class InsertarPersona extends javax.swing.JFrame {
        t_tel.setText("");
     }
     private void atrasInsertarPersonaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atrasInsertarPersonaMouseClicked
+       
        limpiar();
        ventanaC.setVisible(true);
-       this.dispose();
-       
-       
+       this.dispose();  
     }//GEN-LAST:event_atrasInsertarPersonaMouseClicked
 
     private void insertarPersonaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertarPersonaMouseClicked
-       Registrar();
+       datos.agregarPersona(t_ced.getText(), t_nom.getText(),t_dir.getText(),t_ciu.getText());
+       datos.agregarTelefonos(t_tel.getText(), t_ced.getText());
        limpiar();
     }//GEN-LAST:event_insertarPersonaMouseClicked
-    private void registrarTelefonos(){
-        if(t_tel.getText()!=""){
-            String telefono = "insert into telefonosPersona(numero,cedulaP)values (?,?)";
-            try{
-                Connection cin = coneccion.Entrar(); 
-                ps = cin.prepareCall(telefono);
-                ps.setString(1,t_tel.getText());
-                ps.setString(2,t_ced.getText());                   
-                int registro = ps.executeUpdate();           
-                if(registro>0){
-
-                    JOptionPane.showMessageDialog(this,"Se registro","Bien",JOptionPane.QUESTION_MESSAGE);
-                }
-                else{
-
-                    JOptionPane.showMessageDialog(this,"Se registro","Bien",JOptionPane.ERROR_MESSAGE);     
-                }
-                        }
-            catch(Exception e){
-
-            }
-        }
-    }
+    
     private void agregarTelefonosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarTelefonosMouseClicked
-        registrarTelefonos();
+        datos.agregarTelefonos(t_tel.getText(), t_ced.getText());
         t_tel.setText("");
     }//GEN-LAST:event_agregarTelefonosMouseClicked
 

@@ -20,7 +20,7 @@ public class CrearVentanasClientes {
     InsertarPersona ventanaIP;
     ModificarPersona ventanaMP;
     SuspenderPersona ventanaSP;
-    ListarPersonas ventanaLP;
+    ListarClientes ventanaLP;
     InsertarOrganización ventanaIO;
     ModificarOrganización ventanaMO;
     SuspenderOrganización ventanaSO;
@@ -30,7 +30,7 @@ public class CrearVentanasClientes {
         this.ventanaIP=new InsertarPersona();
         this.ventanaMP= new ModificarPersona();
         this.ventanaSP=  new SuspenderPersona();
-        this.ventanaLP= new ListarPersonas();
+        this.ventanaLP= new ListarClientes();
         this.ventanaIO = new InsertarOrganización();
         this.ventanaMO = new ModificarOrganización();
         this.ventanaSO = new SuspenderOrganización();
@@ -48,7 +48,7 @@ public class CrearVentanasClientes {
         return ventanaSP;
     }
 
-    public ListarPersonas getVentanaLP() {
+    public ListarClientes getVentanaLP() {
         return ventanaLP;
     }
 
@@ -76,7 +76,7 @@ public class CrearVentanasClientes {
         this.ventanaSP = ventanaSP;
     }
 
-    public void setVentanaLP(ListarPersonas ventanaLP) {
+    public void setVentanaLP(ListarClientes ventanaLP) {
         this.ventanaLP = ventanaLP;
     }
 

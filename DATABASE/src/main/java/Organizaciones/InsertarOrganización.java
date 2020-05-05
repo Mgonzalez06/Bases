@@ -1,6 +1,8 @@
 package Organizaciones;
 import Conexion.Conexion;
+import Datos.ManipularDatos;
 import Menus.Clientes;
+import Menus.ManipularClientes;
 import java.sql.*;
 
 import javax.swing.JOptionPane;
@@ -20,40 +22,13 @@ public class InsertarOrganización extends javax.swing.JFrame {
      * Creates new form InsertarOrganización
      */
     public Clientes ventanaC;
-    Conexion coneccion= new Conexion();
-    
-    PreparedStatement pS;
+    ManipularDatos datos;
     public InsertarOrganización() {
-        
+        this.datos=new ManipularDatos();
         initComponents();
     }
-
-   void Insertar(){
-        String insertar = "insert into organizacion (cedulaJ,nombre,direccionE,ciudad,nombreCC,telefonoC,cargoC)values (?,?,?,?,?,?,?)";
-        try{
-            Connection cin = coneccion.Entrar();
-            pS = cin.prepareCall(insertar);
-            pS.setString(1,t_ced.getText());
-            pS.setString(2,t_nom.getText());
-            pS.setString(3,t_dir.getText());
-            pS.setString(4,t_ciu.getText());
-            pS.setString(5, t_noc.getText());
-            pS.setString(6,t_tel.getText());
-            pS.setString(7,t_car.getText());
-            int registro = pS.executeUpdate();
-            if(registro>0){
-                cin.close();
-                JOptionPane.showMessageDialog(this,"Se registro","Bien",JOptionPane.QUESTION_MESSAGE);              
-            }
-            else{
-                cin.close();
-                JOptionPane.showMessageDialog(this,"Se registro","Bien",JOptionPane.ERROR_MESSAGE);               
-            }
-        }
-        catch(Exception e){
-            
-        }
-    }
+    
+   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -73,9 +48,9 @@ public class InsertarOrganización extends javax.swing.JFrame {
         t_tel = new javax.swing.JTextField();
         t_ciu = new javax.swing.JTextField();
         t_car = new javax.swing.JTextField();
-        t_noc = new javax.swing.JTextField();
-        b_ins = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        t_nomC = new javax.swing.JTextField();
+        insertar = new javax.swing.JButton();
+        atras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,17 +74,17 @@ public class InsertarOrganización extends javax.swing.JFrame {
 
         jLabel9.setText("Cargo:");
 
-        b_ins.setText("Insertar");
-        b_ins.addMouseListener(new java.awt.event.MouseAdapter() {
+        insertar.setText("Insertar");
+        insertar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                b_insMouseClicked(evt);
+                insertarMouseClicked(evt);
             }
         });
 
-        jButton2.setText("Atrás");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        atras.setText("Atrás");
+        atras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                atrasMouseClicked(evt);
             }
         });
 
@@ -142,7 +117,7 @@ public class InsertarOrganización extends javax.swing.JFrame {
                                 .addGap(7, 7, 7)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(t_tel, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(t_noc, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(t_nomC, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(t_car, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(154, 154, 154)
@@ -153,9 +128,9 @@ public class InsertarOrganización extends javax.swing.JFrame {
                 .addContainerGap(134, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(atras)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(b_ins)
+                .addComponent(insertar)
                 .addGap(40, 40, 40))
         );
         layout.setVerticalGroup(
@@ -184,7 +159,7 @@ public class InsertarOrganización extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(t_noc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(t_nomC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
@@ -195,22 +170,33 @@ public class InsertarOrganización extends javax.swing.JFrame {
                     .addComponent(t_car, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(b_ins)
-                    .addComponent(jButton2))
+                    .addComponent(insertar)
+                    .addComponent(atras))
                 .addContainerGap(10, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void limpiar(){
+       t_nom.setText("");
+       t_ced.setText("");
+       t_dir.setText("");
+       t_ciu.setText("");
+       t_tel.setText("");
+       t_nomC.setText("");
+       t_car.setText("");
+    }
+    private void atrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atrasMouseClicked
         ventanaC.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_atrasMouseClicked
 
-    private void b_insMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_insMouseClicked
-        Insertar();
-    }//GEN-LAST:event_b_insMouseClicked
+    private void insertarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertarMouseClicked
+       datos.agregarOrganizacion(t_ced.getText(),t_nom.getText(),t_dir.getText(),t_ciu.getText(),t_nomC.getText(),
+               t_tel.getText(),t_car.getText());
+       
+       limpiar();
+    }//GEN-LAST:event_insertarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -248,8 +234,8 @@ public class InsertarOrganización extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton b_ins;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton atras;
+    private javax.swing.JButton insertar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -263,8 +249,8 @@ public class InsertarOrganización extends javax.swing.JFrame {
     private javax.swing.JTextField t_ced;
     private javax.swing.JTextField t_ciu;
     private javax.swing.JTextField t_dir;
-    private javax.swing.JTextField t_noc;
     private javax.swing.JTextField t_nom;
+    private javax.swing.JTextField t_nomC;
     private javax.swing.JTextField t_tel;
     // End of variables declaration//GEN-END:variables
 }

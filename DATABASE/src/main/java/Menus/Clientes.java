@@ -45,8 +45,8 @@ public class Clientes extends javax.swing.JFrame {
         r_mod = new javax.swing.JRadioButton();
         r_sus = new javax.swing.JRadioButton();
         continuar = new javax.swing.JButton();
-        r_lis = new javax.swing.JRadioButton();
         atras = new javax.swing.JButton();
+        listar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,6 +72,9 @@ public class Clientes extends javax.swing.JFrame {
         r_ins.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 r_insMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                r_insMouseEntered(evt);
             }
         });
 
@@ -101,13 +104,6 @@ public class Clientes extends javax.swing.JFrame {
             }
         });
 
-        r_lis.setText("Listar");
-        r_lis.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                r_lisMouseClicked(evt);
-            }
-        });
-
         atras.setText("Atrás");
         atras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -115,24 +111,17 @@ public class Clientes extends javax.swing.JFrame {
             }
         });
 
+        listar.setText("Listar");
+        listar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listarMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(r_org)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 35, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(r_sus)
-                        .addComponent(r_mod)
-                        .addComponent(r_ins)
-                        .addComponent(r_lis))
-                    .addComponent(r_per, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(295, 295, 295))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(atras)
@@ -142,26 +131,41 @@ public class Clientes extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(173, 173, 173)
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(listar)
+                .addGap(27, 27, 27))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addComponent(r_org)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 49, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(r_sus)
+                        .addComponent(r_mod)
+                        .addComponent(r_ins))
+                    .addComponent(r_per, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(281, 281, 281))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(listar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(r_per)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(r_org)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(r_ins)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(r_mod)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(r_sus)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(r_lis)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(continuar)
                     .addComponent(atras))
@@ -184,7 +188,7 @@ public class Clientes extends javax.swing.JFrame {
        r_ins.setSelected(false);
        r_mod.setSelected(false);
        r_sus.setSelected(false);
-       r_lis.setSelected(false);
+      
     }//GEN-LAST:event_atrasMouseClicked
 
     private void r_perMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_r_perMouseClicked
@@ -203,30 +207,22 @@ public class Clientes extends javax.swing.JFrame {
         // TODO add your handling code here:
         r_mod.setSelected(false);
         r_sus.setSelected(false);
-        r_lis.setSelected(false);
+       
     }//GEN-LAST:event_r_insMouseClicked
 
     private void r_modMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_r_modMouseClicked
         // TODO add your handling code here:
         r_ins.setSelected(false);
         r_sus.setSelected(false);
-        r_lis.setSelected(false);
+       
     }//GEN-LAST:event_r_modMouseClicked
 
     private void r_susMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_r_susMouseClicked
         // TODO add your handling code here:
         r_ins.setSelected(false);
         r_mod.setSelected(false);
-        r_lis.setSelected(false);
+       
     }//GEN-LAST:event_r_susMouseClicked
-
-    private void r_lisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_r_lisMouseClicked
-        // TODO add your handling code here:
-        r_ins.setSelected(false);
-        r_mod.setSelected(false);
-        r_sus.setSelected(false);
-     
-    }//GEN-LAST:event_r_lisMouseClicked
     public void instruccionesCliente(){
         if (r_per.isSelected()==true){
             if(r_ins.isSelected()==true){
@@ -244,11 +240,9 @@ public class Clientes extends javax.swing.JFrame {
                 ventanas.getVentanaSP().ventanaC=this;
                 this.dispose();
             }   
-            else if(r_lis.isSelected()==true){
-                ventanas.getVentanaLP().setVisible(true);
-                ventanas.getVentanaLP().ventanaC=this;
-                this.dispose();
-            }
+            
+                
+            
         }
         else if(r_org.isSelected()==true){
             if(r_ins.isSelected()==true){
@@ -271,6 +265,16 @@ public class Clientes extends javax.swing.JFrame {
     private void continuarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_continuarMouseClicked
         instruccionesCliente();
     }//GEN-LAST:event_continuarMouseClicked
+
+    private void listarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listarMouseClicked
+       ventanas.getVentanaLP().setVisible(true);
+       ventanas.getVentanaLP().ventanaC=this;
+       this.dispose();
+    }//GEN-LAST:event_listarMouseClicked
+
+    private void r_insMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_r_insMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_r_insMouseEntered
 
     /**
      * @param args the command line arguments
@@ -311,8 +315,8 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JButton atras;
     private javax.swing.JButton continuar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton listar;
     private javax.swing.JRadioButton r_ins;
-    private javax.swing.JRadioButton r_lis;
     private javax.swing.JRadioButton r_mod;
     private javax.swing.JCheckBox r_org;
     private javax.swing.JCheckBox r_per;
