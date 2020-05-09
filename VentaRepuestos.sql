@@ -3,8 +3,31 @@
 
 
 create database ventaRepuestos
-
 use ventaRepuestos
+
+--Veo los clientes registrados de X tabla
+SELECT * FROM persona
+--Agarra la persona con valor mayor de cedula, sirve para cliente y para siempre obtener el ultimo cliente mediante ID
+SELECT TOP (2) * FROM cliente ORDER BY id DESC;
+--Insertar datos en x tabla
+insert into persona(cedula,nombreC,direccionE,ciudad) values(504330650,'Maria liseth gonzalez Flores','150m oeste de xxxxxx xxxxx xxxxx ','Cartago');
+insert into cliente(estado) values('ACTIVO');
+
+--Borra todos los datos de la tabla persona, o sea las personas registradas
+DELETE FROM telefonosPersona
+
+--Resetea el identity de X tabla
+DBCC CHECKIDENT (cliente, RESEED,0)
+
+--Actualiza datos de las tablas
+UPDATE persona 
+    SET nombreC= 'Damaris'
+	WHERE cedula=504330070;
+
+--Borra la base de datos
+drop database ventaRepuestos
+--Borra tablas
+drop table fabricante
 
 create table persona
 (
@@ -15,7 +38,9 @@ ciudad varchar(15) not null,
 idC int,
 cedulaJO int,
 CONSTRAINT PKPER PRIMARY KEY(cedula),
+UNIQUE (idC),
 CONSTRAINT FKUNI FOREIGN KEY(idC) REFERENCES cliente(id)
+
 ON DELETE SET NULL
 ON UPDATE CASCADE,
 CONSTRAINT FKPERT FOREIGN KEY(cedulaJO) REFERENCES organizacion(cedulaJ)
@@ -23,31 +48,12 @@ ON DELETE SET NULL
 
 )
 
-
-insert into persona(cedula,nombreC,direccionE,ciudad) values(504330650,'Maria liseth gonzalez Flores','150m oeste de xxxxxx xxxxx xxxxx ','Cartago');
-insert into cliente(estado) values('ACTIVO');
---Veo los clientes registrados
-SELECT * FROM cliente
---Agarra la persona con valor mayor de cedula, sirve para cliente y para siempre obtener el ultimo cliente mediante ID
-SELECT TOP (1) * FROM persona ORDER BY cedula;
---Para ver las personas que sean clientes
-SELECT * FROM persona where idC IS NOT NULL;
---Borra todos los datos de la tabla persona, o sea las personas registradas
-DELETE FROM persona
-
-SELECT * FROM telefonosPersona
-
-SELECT * FROM parte
-
---Actualiza datos de las tablas
-UPDATE persona 
-    SET idC = 1;
 create table telefonosPersona
 (
 numero int not null,
-cedulaP int,
+cedulaP int not null,
 
-CONSTRAINT PKTEL PRIMARY KEY(numero),
+CONSTRAINT PKTEL PRIMARY KEY(numero,cedulaP),
 CONSTRAINT FKPER FOREIGN KEY(cedulaP) REFERENCES persona(cedula)
 ON DELETE SET NULL
 ON UPDATE CASCADE,
@@ -66,19 +72,12 @@ telefonoC int,
 
 idC int,
 CONSTRAINT PKORG PRIMARY KEY(cedulaJ),
+UNIQUE (idC),
 CONSTRAINT FKUNION FOREIGN KEY(idC) REFERENCES cliente(id)
 ON DELETE SET NULL
 
 )
-SELECT * FROM organizacion
---Mejor ponerlo en organización de una
-create table contactoO
-(
-nombreC varchar(50) not null,
-telefonos int not null,
-cargo varchar(30) not null,
-CONSTRAINT PKCONT PRIMARY KEY(nombreC),
-)
+
 
 create table cliente
 (
@@ -90,7 +89,7 @@ CONSTRAINT FKREA FOREIGN KEY(numeroCO) REFERENCES orden(numeroC)
 ON DELETE SET NULL
 ON UPDATE CASCADE,
 )
-drop database ventaRepuestos
+
 
 create table detalle
 (
@@ -121,16 +120,11 @@ nombreE varchar(40) not null,
 marca varchar(30) not null,
 automovilC varchar(50) not null,
 
-
-numeroCO int,
 nombreF varchar(30),
 codigoA int,
 codigoD int,
 
 CONSTRAINT PKPAR PRIMARY KEY(nombreE),
-CONSTRAINT FKPART FOREIGN KEY(numeroCO) REFERENCES orden(numeroC)
-ON DELETE SET NULL
-ON UPDATE CASCADE,
 CONSTRAINT FKCRE FOREIGN KEY(nombreF) REFERENCES fabricantePartes(nombre)
 ON DELETE SET NULL
 ON UPDATE CASCADE,
@@ -139,9 +133,17 @@ ON DELETE SET NULL,
 --ON UPDATE CASCADE,
 CONSTRAINT FKDET FOREIGN KEY(codigoD) REFERENCES detalle(codigo)
 )
+create table relacionRegistroPartes
+(
+numeroCO int not null,
+nombreEP varchar(40) not null,
+CONSTRAINT PKRELRP PRIMARY KEY(numeroCO,nombreEP),
+CONSTRAINT FKORD FOREIGN KEY(numeroCO) REFERENCES orden(numeroC)
+ON UPDATE CASCADE,
+CONSTRAINT FKNOMEP FOREIGN KEY(nombreEP) REFERENCES parte(nombreE)
 
-
-select * from parte
+ON UPDATE CASCADE
+)
 
 
 create table fabricantePartes
@@ -149,9 +151,6 @@ create table fabricantePartes
 nombre varchar(30) not null,
 CONSTRAINT PKFABP PRIMARY KEY(nombre),
 )
-
-
-drop table fabricante
 
 
 create table fabricanteAutomovil
@@ -198,10 +197,6 @@ CONSTRAINT FKFP FOREIGN KEY(nombreEP) REFERENCES parte(nombreE)
 ON DELETE SET NULL
 ON UPDATE CASCADE,
 )
-
-
-drop table venta
-
 
 create table empresaProveedora
 (
