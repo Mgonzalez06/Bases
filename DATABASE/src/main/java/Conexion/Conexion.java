@@ -19,11 +19,13 @@ public class Conexion {
     public Connection Entrar(){
         try{
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            cn=DriverManager.getConnection("jdbc:sqlserver://LISETHGF:1433;DatabaseName = ventaRepuestos;user =sa"
-                    + ";password= 012345");         
+            cn=DriverManager.getConnection("jdbc:sqlserver://DESKTOP-UUNURBQ:1433;DatabaseName = ventaRepuestos;user =sa"
+                    + ";password= 012345");   //LISETHGF:1433  
+            System.out.println("todo bien");
         }
         catch(Exception e)
         {      
+            System.out.println("todo mal");
         }
         return cn;
     }

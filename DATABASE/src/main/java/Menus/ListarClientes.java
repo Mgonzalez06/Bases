@@ -5,8 +5,6 @@
  */
 package Menus;
 import Datos.ManipularDatos;
-import Menus.Clientes;
-import Menus.ManipularClientes;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -57,6 +55,11 @@ public class ListarClientes extends javax.swing.JFrame {
         ver.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 verMouseClicked(evt);
+            }
+        });
+        ver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verActionPerformed(evt);
             }
         });
 
@@ -125,6 +128,10 @@ public class ListarClientes extends javax.swing.JFrame {
         this.dispose();
         jTextArea2.setText("");
     }//GEN-LAST:event_atrasMouseClicked
+
+    private void verActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_verActionPerformed
 
     /**
      * @param args the command line arguments

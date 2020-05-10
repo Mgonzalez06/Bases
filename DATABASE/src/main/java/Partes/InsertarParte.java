@@ -1,10 +1,14 @@
 package Partes;
 
 import Conexion.Conexion;
+import Datos.ManipularDatos;
 import Menus.Clientes;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /*
@@ -25,6 +29,7 @@ public class InsertarParte extends javax.swing.JFrame {
     Conexion coneccion= new Conexion();
     PreparedStatement ps;
     public Partes ventanaP;
+    public ManipularDatos manipuladorDatos = new ManipularDatos();
     public InsertarParte() {
         initComponents();
     }
@@ -73,6 +78,11 @@ public class InsertarParte extends javax.swing.JFrame {
         b_ins.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 b_insMouseClicked(evt);
+            }
+        });
+        b_ins.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_insActionPerformed(evt);
             }
         });
 
@@ -190,8 +200,20 @@ public class InsertarParte extends javax.swing.JFrame {
     }//GEN-LAST:event_t_nomFActionPerformed
 
     private void b_insMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_insMouseClicked
-        Registrar();
+       // Registrar();
     }//GEN-LAST:event_b_insMouseClicked
+
+    private void b_insActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_insActionPerformed
+        try {
+            // TODO add your handling code here:
+            if(manipuladorDatos.agregarParte(t_nom.getText(), t_mar.getText(), t_aut.getText(), t_nomF.getText()))
+                JOptionPane.showMessageDialog(this,"Su parte ha sido ingresada con exito","EXITOSO",JOptionPane.QUESTION_MESSAGE);
+            else
+                JOptionPane.showMessageDialog(this,"Ha ocurrido un error, tenga en cuenta si los datos ingresados son correctos y estan registrados en la base de datos.","Fallo",JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(InsertarParte.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_b_insActionPerformed
 
     /**
      * @param args the command line arguments

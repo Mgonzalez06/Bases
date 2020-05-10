@@ -8,9 +8,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 
 public class ManipularDatos {
     Connection con;
@@ -275,7 +277,7 @@ public class ManipularDatos {
     public void agregarCliente(){
         String insertar= "insert into cliente (estado)values ('INACTIVO')";
         try{
-         con = enlace.Entrar(); 
+         con = enlace.Entrar();
          ps = con.prepareCall(insertar);
          ps.executeUpdate();
         }
@@ -359,6 +361,68 @@ public class ManipularDatos {
         catch(Exception e){
             
         }
+    }
+    public boolean agregarParte(String nombreParte,String marca,String modelo,String nombreFab) throws SQLException{
+        String insertar = "insert into parte(nombreE,marca,automovilC,nombreF,codigoA) values (?,?,?,?,?)";
+        try{
+            int codigoCarro = 0;
+            con = enlace.Entrar();
+           Statement stmt = con.createStatement();
+            String SQL = "SELECT * FROM automovil WHERE modelo ='" +modelo+"';";
+            
+            rs = stmt.executeQuery(SQL);
+            
+            
+           
+            ps = con.prepareCall(insertar);
+            ps.setString(1, nombreParte);
+            ps.setString(2, marca);
+            ps.setString(3, modelo);
+            ps.setString(4, nombreFab);
+            while(rs.next()){
+                ps.setInt(5, rs.getInt(1));
+            }
+            
+            ps.executeUpdate();
+            con.close();
+            return true;
+            
+            
+            
+        }
+        catch(Exception e){
+            System.out.println("salio mal");
+            con.close();
+            return false;
+        }
+    }
+    public String listarPartes(String modelo, int ano){
+        try{
+            con = enlace.Entrar();
+            Statement stmt = con.createStatement();
+            String SQL = "SELECT * FROM automovil WHERE modelo ='" + modelo +"' AND añoF = '"+ano+"';" ;
+            rs = stmt.executeQuery(SQL);
+            String listado = null;
+            ArrayList<Integer> array = new ArrayList<>();
+            while(rs.next()){
+                array.add(rs.getInt(1));
+            }
+            
+            for(int i=0;i<array.size();i++){
+                SQL = "SELECT * FROM parte";
+                rs = stmt.executeQuery(SQL);
+                while(rs.next()){
+                    System.out.println(rs.getInt(5));
+                    if(rs.getInt(5) == array.get(i))
+                        listado = rs.getString(1) + "\t" + rs.getString(2) + " \t" + rs.getString(3) +"\t" + rs.getString(4) + "\n" ;
+                }
+            }
+            return listado;
+        }
+        catch(SQLException ex){
+            
+        }
+        return "";
     }
     public void cerrarConexion(){
         try{

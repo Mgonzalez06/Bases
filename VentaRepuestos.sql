@@ -29,7 +29,7 @@ drop database ventaRepuestos
 --Borra tablas
 drop table fabricante
 
-create table persona
+create table persona  --TABLA 5
 (
 cedula int not null,
 nombreC varchar(50) not null,
@@ -48,18 +48,18 @@ ON DELETE SET NULL
 
 )
 
-create table telefonosPersona
+create table telefonosPersona  --TABLA 6
 (
 numero int not null,
 cedulaP int not null,
 
 CONSTRAINT PKTEL PRIMARY KEY(numero,cedulaP),
 CONSTRAINT FKPER FOREIGN KEY(cedulaP) REFERENCES persona(cedula)
-ON DELETE SET NULL
-ON UPDATE CASCADE,
-)
 
-create table organizacion
+ON UPDATE CASCADE,
+)-- aQUI BORRE ALGO
+
+create table organizacion  --TABLA 4
 (
 cedulaJ int not null,
 nombre varchar(40) not null,
@@ -79,7 +79,7 @@ ON DELETE SET NULL
 )
 
 
-create table cliente
+create table cliente  -- TABLA 3
 (
 id int identity,
 estado varchar(30),
@@ -91,7 +91,7 @@ ON UPDATE CASCADE,
 )
 
 
-create table detalle
+create table detalle  --TABLA 1
 (
 codigo int identity not null,
 precio int not null,
@@ -99,7 +99,7 @@ nombreP varchar(30) not null,
 cantidadV int,
 CONSTRAINT PKDET PRIMARY KEY(codigo),
 )
-create table orden
+create table orden  --TABLA 2
 (
 numeroC int identity not null,
 fecha dateTime not null,
@@ -114,7 +114,7 @@ CONSTRAINT FKTIE FOREIGN KEY(codigoD) REFERENCES detalle(codigo)
 ON DELETE SET NULL
 ON UPDATE CASCADE,
 )
-create table parte
+create table parte --TABLA 10
 (
 nombreE varchar(40) not null,
 marca varchar(30) not null,
@@ -133,7 +133,7 @@ ON DELETE SET NULL,
 --ON UPDATE CASCADE,
 CONSTRAINT FKDET FOREIGN KEY(codigoD) REFERENCES detalle(codigo)
 )
-create table relacionRegistroPartes
+create table relacionRegistroPartes --tabla 11
 (
 numeroCO int not null,
 nombreEP varchar(40) not null,
@@ -146,20 +146,20 @@ ON UPDATE CASCADE
 )
 
 
-create table fabricantePartes
+create table fabricantePartes   --TABLA 7
 (
 nombre varchar(30) not null,
 CONSTRAINT PKFABP PRIMARY KEY(nombre),
 )
 
 
-create table fabricanteAutomovil
+create table fabricanteAutomovil -- TABLA 8
 (
 nombre varchar(30) not null,
 CONSTRAINT PKFABA PRIMARY KEY(nombre),
 )
 
-create table automovil
+create table automovil  --TABLA 9
 (
 codigo int  not null,
 modelo varchar(40) not null,
@@ -177,8 +177,8 @@ ON DELETE SET NULL
 ON UPDATE CASCADE,
 )
 
-
-create table venta
+SELECT * FROM automovil WHERE modelo ='F18' AND añoF ='2011';
+create table venta    --TABLA 14
 (
 codigo int  identity not null,
 precioP int,
@@ -198,7 +198,7 @@ ON DELETE SET NULL
 ON UPDATE CASCADE,
 )
 
-create table empresaProveedora
+create table empresaProveedora   --TABLA 12
 (
 nombre varchar(30) not null,
 direccion varchar(50) not null,
@@ -208,7 +208,7 @@ nombreCont varchar(50) not null,
 CONSTRAINT PKEMP PRIMARY KEY(nombre,direccion),
 )
 
-create table telefonoEmpresa
+create table telefonoEmpresa  --TABLA 13
 (
 numero int not null,
 
