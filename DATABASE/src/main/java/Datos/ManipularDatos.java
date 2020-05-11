@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -362,26 +364,23 @@ public class ManipularDatos {
             
         }
     }
-    public boolean agregarParte(String nombreParte,String marca,String modelo,String nombreFab) throws SQLException{
-        String insertar = "insert into parte(nombreE,marca,automovilC,nombreF,codigoA) values (?,?,?,?,?)";
+    public boolean agregarParte(String nombreParte,String marca,String nombreFab) throws SQLException{
+        String insertar = "insert into parte(nombreE,marca,nombreF) values (?,?,?)";
         try{
-            int codigoCarro = 0;
+           
             con = enlace.Entrar();
-           Statement stmt = con.createStatement();
-            String SQL = "SELECT * FROM automovil WHERE modelo ='" +modelo+"';";
+          // Statement stmt = con.createStatement();
+          //  String SQL = "SELECT * FROM automovil WHERE modelo ='" +modelo+"';";
             
-            rs = stmt.executeQuery(SQL);
+          //  rs = stmt.executeQuery(SQL);
             
             
            
             ps = con.prepareCall(insertar);
             ps.setString(1, nombreParte);
             ps.setString(2, marca);
-            ps.setString(3, modelo);
-            ps.setString(4, nombreFab);
-            while(rs.next()){
-                ps.setInt(5, rs.getInt(1));
-            }
+            ps.setString(3, nombreFab);
+            
             
             ps.executeUpdate();
             con.close();
@@ -402,27 +401,99 @@ public class ManipularDatos {
             Statement stmt = con.createStatement();
             String SQL = "SELECT * FROM automovil WHERE modelo ='" + modelo +"' AND añoF = '"+ano+"';" ;
             rs = stmt.executeQuery(SQL);
-            String listado = null;
+            String listado = "";
             ArrayList<Integer> array = new ArrayList<>();
             while(rs.next()){
                 array.add(rs.getInt(1));
             }
             
-            for(int i=0;i<array.size();i++){
-                SQL = "SELECT * FROM parte";
+            
+                SQL = "SELECT * FROM vehiculosPartes;";
                 rs = stmt.executeQuery(SQL);
                 while(rs.next()){
-                    System.out.println(rs.getInt(5));
-                    if(rs.getInt(5) == array.get(i))
-                        listado = rs.getString(1) + "\t" + rs.getString(2) + " \t" + rs.getString(3) +"\t" + rs.getString(4) + "\n" ;
+                    System.out.println(rs.getInt(1));
+                    if(rs.getInt(1) == array.get(0))
+                        listado+=rs.getString(2) + "\t" + rs.getString(3) + " \t" + modelo + "\t" +ano + "\t" + rs.getString(4) + "\n" ;
                 }
-            }
+            
             return listado;
         }
         catch(SQLException ex){
             
         }
         return "";
+    }
+    
+    public boolean agregarProvedor_Parte(String nombreParte,String marcaParte,String nomFabricante,String nombreProvedor,String direccionProvedor,int precioCosto,int precioParte){
+        String insertar = "insert into venta(precioP,PrecioC,nombreE,direccionE,nombreEP,marcaParte,nomFab) values (?,?,?,?,?,?,?)";
+        
+        con = enlace.Entrar();
+        try {
+            ps = con.prepareCall(insertar);
+            ps.setInt(1, precioParte);
+            ps.setInt(2, precioCosto);
+            ps.setString(3,nombreProvedor);
+            ps.setString(4,direccionProvedor);
+            ps.setString(5,nombreParte);
+            ps.setString(6,marcaParte);
+            ps.setString(7, nomFabricante);
+            ps.executeUpdate();
+            con.close();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println("Fallo  en la conexion");
+            return false;
+        }
+       
+    }
+    
+    public boolean cambiarPrecios(String nombreParte,String marcaP,String nomFab,String nombreProvedor,String direccionProvedor,int precioNuevo,boolean decision){  //DECISION = TRUE : PRECIO VENTA....DECISION = FALSE : PRECIO COSTO
+        String actualizacion = "";
+        if(decision)
+            actualizacion = "UPDATE venta SET precioP= ? WHERE nombreE='"+nombreProvedor+"' AND direccionE ='"+direccionProvedor+"' AND nombreEP ='"+nombreParte+"' AND marcaParte = '"+marcaP +"' AND nomFab = '"+nomFab +"';";
+        
+        else
+            actualizacion = "UPDATE venta SET precioC=? WHERE nombreE='"+nombreProvedor+"' AND direccionE ='"+direccionProvedor+"' AND nombreEP ='"+nombreParte+"' AND marcaParte = '"+marcaP +"' AND nomFab = '"+nomFab +"';";
+        
+        
+        try {
+            con = enlace.Entrar();
+            ps = con.prepareCall(actualizacion);
+            ps.setInt(1, precioNuevo);
+            ps.executeUpdate();
+            con.close();
+            return true;
+            
+        } catch (SQLException ex) {
+           return false;
+        }
+            
+    }
+    public boolean asociarAutosPartes(String nombreParte,String marcaParte,String nomFabricante,String modeloAutomovil,String anoAutomovil){
+        con = enlace.Entrar();
+            Statement stmt;
+        try {
+            stmt = con.createStatement();
+            String SQL = "SELECT * FROM automovil WHERE modelo ='" + modeloAutomovil +"' AND añoF = '"+anoAutomovil+"';" ;
+            rs = stmt.executeQuery(SQL);
+            int codigoCarro = 0;
+            while(rs.next())
+                codigoCarro = rs.getInt(1);
+            String insertar = "insert into vehiculosPartes(codigoVehiculo,nombreParte,marcaParte,fabricanteParte) values (?,?,?,?)";
+            
+            ps = con.prepareCall(insertar);
+            ps.setInt(1,codigoCarro);
+            ps.setString(2, nombreParte);
+            ps.setString(3,marcaParte);
+            ps.setString(4, nomFabricante);
+            ps.executeUpdate();
+            con.close();
+            return true;
+            
+        } catch (SQLException ex) {
+           return false;
+        }
+            
     }
     public void cerrarConexion(){
         try{

@@ -14,11 +14,34 @@ public class CrearVentanasPartes {
     InsertarParte ventanaIP;
     BorrarParte ventanaBP;
     ListarPartes ventanaLP;
+    AsociarParteProvedor ventanaAsociarParteProvedor;
+    ActualizarPrecioParte actualizarPreciosParte;
+    AsociarVehiculoParte ventanaAsociarParteVehiculo;
+    
 
     public CrearVentanasPartes() {
         this.ventanaIP = new InsertarParte();
         this.ventanaBP = new BorrarParte();
         this.ventanaLP = new ListarPartes();
+        this.ventanaAsociarParteProvedor = new AsociarParteProvedor();
+        this.actualizarPreciosParte = new ActualizarPrecioParte();
+        this.ventanaAsociarParteVehiculo = new AsociarVehiculoParte();
+    }
+
+    public AsociarVehiculoParte getVentanaAsociarParteVehiculo() {
+        return ventanaAsociarParteVehiculo;
+    }
+
+    public void setVentanaAsociarParteVehiculo(AsociarVehiculoParte ventanaAsociarParteVehiculo) {
+        this.ventanaAsociarParteVehiculo = ventanaAsociarParteVehiculo;
+    }
+
+    public ActualizarPrecioParte getActualizarPreciosParte() {
+        return actualizarPreciosParte;
+    }
+
+    public void setActualizarPreciosParte(ActualizarPrecioParte actualizarPreciosParte) {
+        this.actualizarPreciosParte = actualizarPreciosParte;
     }
 
     public InsertarParte getVentanaIP() {
@@ -43,6 +66,14 @@ public class CrearVentanasPartes {
 
     public void setVentanaLP(ListarPartes ventanaLP) {
         this.ventanaLP = ventanaLP;
+    }
+
+    public AsociarParteProvedor getVentanaAsociarParteProvedor() {
+        return ventanaAsociarParteProvedor;
+    }
+
+    public void setVentanaAsociarParteProvedor(AsociarParteProvedor ventanaAsociarParteProvedor) {
+        this.ventanaAsociarParteProvedor = ventanaAsociarParteProvedor;
     }
     
     

@@ -114,22 +114,23 @@ CONSTRAINT FKTIE FOREIGN KEY(codigoD) REFERENCES detalle(codigo)
 ON DELETE SET NULL
 ON UPDATE CASCADE,
 )
+
 create table parte --TABLA 10
 (
 nombreE varchar(40) not null,
 marca varchar(30) not null,
-automovilC varchar(50) not null,
+--automovilC varchar(50) not null,
 
 nombreF varchar(30),
 codigoA int,
 codigoD int,
 
-CONSTRAINT PKPAR PRIMARY KEY(nombreE),
+CONSTRAINT PKPAR PRIMARY KEY(nombreE,marca,nombreF),
 CONSTRAINT FKCRE FOREIGN KEY(nombreF) REFERENCES fabricantePartes(nombre)
-ON DELETE SET NULL
+ON DELETE CASCADE
 ON UPDATE CASCADE,
 CONSTRAINT FKEST FOREIGN KEY(codigoA) REFERENCES automovil(codigo)
-ON DELETE SET NULL,
+ON DELETE  CASCADE,
 --ON UPDATE CASCADE,
 CONSTRAINT FKDET FOREIGN KEY(codigoD) REFERENCES detalle(codigo)
 )
@@ -137,14 +138,34 @@ create table relacionRegistroPartes --tabla 11
 (
 numeroCO int not null,
 nombreEP varchar(40) not null,
-CONSTRAINT PKRELRP PRIMARY KEY(numeroCO,nombreEP),
+marcaParte varchar(30) not null,
+fabricanteParte varchar(30)
+
+CONSTRAINT PKRELRP PRIMARY KEY(numeroCO,nombreEP,marcaParte,fabricanteParte),
 CONSTRAINT FKORD FOREIGN KEY(numeroCO) REFERENCES orden(numeroC)
 ON UPDATE CASCADE,
-CONSTRAINT FKNOMEP FOREIGN KEY(nombreEP) REFERENCES parte(nombreE)
+CONSTRAINT FKNOMEP FOREIGN KEY(nombreEP,marcaParte,fabricanteParte) REFERENCES parte(nombreE,marca,nombreF)
+ON UPDATE CASCADE
+ON DELETE CASCADE
+
+
+)
+create table vehiculosPartes   --TABLA 15
+(
+codigoVehiculo int  not null,
+nombreParte varchar(40),
+marcaParte varchar(30),
+fabricanteParte varchar(30)
+
+CONSTRAINT PKVP PRIMARY KEY (codigoVehiculo,nombreParte,marcaParte,fabricanteParte),
+CONSTRAINT FKCodeV FOREIGN KEY(codigoVehiculo) REFERENCES automovil(codigo)
+
+ON UPDATE CASCADE,
+CONSTRAINT FKnomParte FOREIGN KEY(nombreParte,marcaParte,fabricanteParte) REFERENCES parte(nombreE,marca,nombreF)
 
 ON UPDATE CASCADE
-)
 
+)
 
 create table fabricantePartes   --TABLA 7
 (
@@ -161,7 +182,7 @@ CONSTRAINT PKFABA PRIMARY KEY(nombre),
 
 create table automovil  --TABLA 9
 (
-codigo int  not null,
+codigo int not null,
 modelo varchar(40) not null,
 añoF int not null,
 detalleA varchar(100) not null,
@@ -183,20 +204,24 @@ create table venta    --TABLA 14
 codigo int  identity not null,
 precioP int,
 precioC int not null,
-porcentajeG as precioC-precioP,
+porcentajeG as precioP-precioC,
 
 nombreE varchar(30),
 direccionE varchar(50),
 nombreEP varchar(40),
+marcaParte varchar(30),
+nomFab varchar(30)
 
 CONSTRAINT PKVEN PRIMARY KEY(codigo),
 CONSTRAINT FKVEND FOREIGN KEY(nombreE,direccionE)REFERENCES empresaProveedora(nombre,direccion)
 ON DELETE SET NULL
 ON UPDATE CASCADE,
-CONSTRAINT FKFP FOREIGN KEY(nombreEP) REFERENCES parte(nombreE)
+CONSTRAINT FKFP FOREIGN KEY(nombreEP,marcaParte,nomFab) REFERENCES parte(nombreE,marca,nombreF)
 ON DELETE SET NULL
 ON UPDATE CASCADE,
 )
+
+UPDATE venta SET precioP=2000 WHERE nombreE='Auto Repuestos Jiménez' AND direccionE = 'PAVAS' AND nombreEP = 'Motor';
 
 create table empresaProveedora   --TABLA 12
 (
@@ -221,3 +246,4 @@ ON DELETE SET NULL
 ON UPDATE CASCADE,
 
 )
+

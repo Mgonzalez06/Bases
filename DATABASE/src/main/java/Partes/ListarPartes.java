@@ -74,7 +74,7 @@ public class ListarPartes extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("Nombre             Marca              Tipo Automovil            Fabricante      ");
+        jLabel4.setText("Nombre             Marca              Tipo Automovil           Año            Fabricante      ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

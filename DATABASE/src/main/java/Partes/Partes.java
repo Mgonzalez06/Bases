@@ -280,6 +280,21 @@ public class Partes extends javax.swing.JFrame {
             ventanas.getVentanaLP().ventanaP = this;
             this.dispose();
         }
+        else if(r_asop.isSelected()){
+            ventanas.getVentanaAsociarParteProvedor().setVisible(true);
+            ventanas.getVentanaAsociarParteProvedor().ventanaP = this;
+            this.dispose();
+        }
+        else if(r_act.isSelected()){
+            ventanas.getActualizarPreciosParte().setVisible(true);
+            ventanas.getActualizarPreciosParte().ventanaP = this;
+            this.dispose();
+        }
+        else if(r_asoa.isSelected()){
+            ventanas.getVentanaAsociarParteVehiculo().setVisible(true);
+            ventanas.getVentanaAsociarParteVehiculo().ventanaP = this;
+            this.dispose();
+        }
     }//GEN-LAST:event_b_conMouseClicked
 
     /**

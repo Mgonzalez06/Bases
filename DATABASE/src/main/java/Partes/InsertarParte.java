@@ -206,7 +206,7 @@ public class InsertarParte extends javax.swing.JFrame {
     private void b_insActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_insActionPerformed
         try {
             // TODO add your handling code here:
-            if(manipuladorDatos.agregarParte(t_nom.getText(), t_mar.getText(), t_aut.getText(), t_nomF.getText()))
+            if(manipuladorDatos.agregarParte(t_nom.getText(), t_mar.getText(), t_nomF.getText()))
                 JOptionPane.showMessageDialog(this,"Su parte ha sido ingresada con exito","EXITOSO",JOptionPane.QUESTION_MESSAGE);
             else
                 JOptionPane.showMessageDialog(this,"Ha ocurrido un error, tenga en cuenta si los datos ingresados son correctos y estan registrados en la base de datos.","Fallo",JOptionPane.ERROR_MESSAGE);
