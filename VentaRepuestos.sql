@@ -2,8 +2,6 @@
 --LAS LLAVES ALTERNAS NO DEBEN SER NULAS NI REPETIRSE
 
 
-create database ventaRepuestos
-use ventaRepuestos
 
 --Veo los clientes registrados de X tabla
 SELECT * FROM persona
@@ -17,7 +15,7 @@ insert into cliente(estado) values('ACTIVO');
 DELETE FROM telefonosPersona
 
 --Resetea el identity de X tabla
-DBCC CHECKIDENT (cliente, RESEED,0)
+DBCC CHECKIDENT (detalle, RESEED,1)
 
 --Actualiza datos de las tablas
 UPDATE persona 
@@ -29,10 +27,13 @@ drop database ventaRepuestos
 --Borra tablas
 drop table fabricante
 
+create database ventaRepuestos
+use ventaRepuestos
+
 create table detalle  --TABLA 1
 (
 codigo int identity not null,
-precio int not null,
+precio float not null,
 nombreP varchar(30) not null,
 cantidadV int,
 CONSTRAINT PKDET PRIMARY KEY(codigo),
@@ -167,10 +168,10 @@ create table relacionRegistroPartes
 (
 numeroCO int not null,
 nombreEP varchar(40) not null,
-codigoD int,
+codigoD int not null,
 marcaP varchar(30),
 nombreFP varchar(30),
-CONSTRAINT PKRELRP PRIMARY KEY(numeroCO,nombreEP),
+CONSTRAINT PKRELRP PRIMARY KEY(numeroCO,nombreEP,codigoD),
 CONSTRAINT FKTIE FOREIGN KEY(codigoD) REFERENCES detalle(codigo),
 CONSTRAINT FKORD FOREIGN KEY(numeroCO) REFERENCES orden(numeroC)
 ON UPDATE CASCADE,
@@ -184,7 +185,7 @@ direccion varchar(50) not null,
 ciudad varchar(15) not null,
 nombreCont varchar(50) not null,
 
-CONSTRAINT PKEMP PRIMARY KEY(nombre,direccion),
+CONSTRAINT PKEMP PRIMARY KEY(nombre,direccion)
 )
 
 create table telefonoEmpresa  --TABLA 13
@@ -208,20 +209,19 @@ precioC float not null,
 porcentajeG as ((precioC-precioP)/precioC)*100,
 
 nombreE varchar(30),
-direccionE varchar(50),
+direccionE varchar(50) ,
 nombreEP varchar(40),
 marcaParte varchar(30),
-nomFab varchar(30)
+nomFab varchar(30),
 
 CONSTRAINT PKVEN PRIMARY KEY(codigo),
-CONSTRAINT FKVEND FOREIGN KEY(nombreE,direccionE)REFERENCES empresaProveedora(nombre,direccion)
+CONSTRAINT FKVENO FOREIGN KEY(nombreE,direccionE) REFERENCES empresaProveedora(nombre,direccion)
 ON DELETE SET NULL
 ON UPDATE CASCADE,
 CONSTRAINT FKFP FOREIGN KEY(nombreEP,marcaParte,nomFab) REFERENCES parte(nombreE,marca,nombreF)
 ON DELETE SET NULL
 ON UPDATE CASCADE,
 )
-insert into venta(precioP,precioC,nombreE,direccionE,nombreEP) values(2000.00,3000.00,'Motociclo','100m oeste esc san pedro','llanta');
 create table vehiculosPartes   --TABLA 15
 (
 codigoVehiculo int  not null,
@@ -252,13 +252,14 @@ insert into parte(nombreE, marca,nombreF) values('llanta','yiyo','simple');
 insert into orden(fecha,nombreC,montoIVA) values('12/05/2020','Liseth Gonzalez',13);
 insert into venta(precioP,precioC,nombreE,direccionE,nombreEP) values(2000.00,3000.00,'Motociclo','500m oeste Banco Nacional','llanta');
 insert into empresaProveedora(nombre,direccion,ciudad,nombreCont) values('motociclo','100m oeste esc san pedro','Heredia','Juanito Perez Mesa');
+insert into detalle(precio,nombreP,cantidadV) values(1000.00,'motociclo',2);
 SELECT * FROM relacionRegistroPartes WHERE numeroCO=11
-SELECT * FROM detalle 
-SELECT * FROM realizaOrden
+SELECT * FROM persona where nombreC= 'Juanita Perez' 
+SELECT * FROM orden
 SELECT * FROM empresaProveedora
-
+SELECT * FROM venta WHERE nombreE ='motociclo' AND nombreEP='llanta';
 DELETE FROM realizaOrden
 DELETE FROM relacionRegistroPartes
 DELETE FROM detalle
 DELETE FROM parte
-
+DELETE FROM orden
