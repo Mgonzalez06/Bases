@@ -40,10 +40,8 @@ public class InsertarParteOrden extends javax.swing.JFrame {
         t_cant = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         ok = new javax.swing.JButton();
         t_prov = new javax.swing.JTextField();
-        t_prec = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         t_nom = new javax.swing.JTextField();
         atras = new javax.swing.JButton();
@@ -57,18 +55,10 @@ public class InsertarParteOrden extends javax.swing.JFrame {
 
         jLabel4.setText("Proveedor:");
 
-        jLabel5.setText("Precio:");
-
         ok.setText("Ok");
         ok.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 okMouseClicked(evt);
-            }
-        });
-
-        t_prec.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                t_precActionPerformed(evt);
             }
         });
 
@@ -103,11 +93,7 @@ public class InsertarParteOrden extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(45, 45, 45)
-                                .addComponent(t_cant, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(t_prec, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(t_cant, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(29, 29, 29))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -116,14 +102,14 @@ public class InsertarParteOrden extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(93, 93, 93))))
+                        .addGap(53, 53, 53))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(t_cant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -135,11 +121,7 @@ public class InsertarParteOrden extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(t_nom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(3, 3, 3)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(t_prec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ok)
                     .addComponent(atras))
@@ -148,20 +130,16 @@ public class InsertarParteOrden extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void t_precActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_precActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_t_precActionPerformed
     public void agregarParte() throws SQLException{
+        
+        datos.agregarDetalle(t_cant.getText(), t_prov.getText(),t_nom.getText());
         datos.insertarParteEnOrden(t_nom.getText());
-        datos.agregarDetalle(t_cant.getText(), t_prec.getText(), t_prov.getText());
         datos.cambiarMontoVentaOrden();
-        datos.asociarDetalleParte();
+        
     }
     private void limpiar(){
         t_cant.setText("");
         t_nom.setText("");
-        t_prec.setText("");
         t_prov.setText("");
     }
     private void okMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_okMouseClicked
@@ -221,11 +199,9 @@ public class InsertarParteOrden extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JButton ok;
     private javax.swing.JTextField t_cant;
     private javax.swing.JTextField t_nom;
-    private javax.swing.JTextField t_prec;
     private javax.swing.JTextField t_prov;
     // End of variables declaration//GEN-END:variables
 }

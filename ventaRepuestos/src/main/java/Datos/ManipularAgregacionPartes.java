@@ -84,12 +84,15 @@ public class ManipularAgregacionPartes {
              
     }
     public void insertarParteEnOrden(String nombreEP){
-        String insertar = "insert into relacionRegistroPartes (numeroCO,nombreEP)values (?,?)";
+        String insertar = "insert into relacionRegistroPartes (numeroCO,nombreEP,codigoD)values (?,?,?)";
         ultimaOrden();
+        String codigoD="";
         this.nombreEP=nombreEP;
      
          try {
             numeroOrden =ObtenerOrden();
+            detalle();
+            codigoD= ObtenerIDDetalle();
         } catch (SQLException ex) {
             
         }
@@ -99,6 +102,7 @@ public class ManipularAgregacionPartes {
             ps = con.prepareCall(insertar);
             ps.setString(1,numeroOrden);
             ps.setString(2,nombreEP);
+            ps.setString(3, codigoD);
             if(verificarParte(nombreEP))
                 ps.executeUpdate(); 
             else{
@@ -124,22 +128,36 @@ public class ManipularAgregacionPartes {
         
       
     }
-    public void agregarDetalle(String cantidad,String precio,String nombreP){
-        String insertar = "insert into detalle(precio,nombreP,cantidadV) values (?,?,?)";
-        this.precio=precio;
-        this.cantidad = cantidad;
-        try
-        {
-            con = enlace.Entrar(); 
-            ps = con.prepareCall(insertar);
-            ps.setString(1,precio);
-            ps.setString(2,nombreP);
-            ps.setString(3, cantidad);
-            if(verificarProveedor(nombreP)){
-                ps.executeUpdate(); 
+    public boolean buscarPrecioParte(String nombreP,String nombreEP){
+        leerDatosEspecificosDobles("venta", "nombreE", "nombreEP", nombreP, nombreEP);
+        try{
+            if(rs.next()){
+                this.precio=rs.getString(3);
+                return true;
+                
             }
-            else{
-                System.out.println("No existe Proveedor con ese nombre");
+            
+            
+        }
+        catch(Exception e){
+            
+        }
+        return false;
+    }
+    public void agregarDetalle(String cantidad,String nombreP,String nombreEP){
+        String insertar = "insert into detalle(precio,nombreP,cantidadV) values (?,?,?)";
+        this.cantidad = cantidad;
+        buscarPrecioParte(nombreP, nombreEP);
+        String precioNuevo=String.valueOf((Double.parseDouble(precio))*(Double.parseDouble(cantidad)));
+        
+        try
+        {   if(buscarPrecioParte(nombreP, nombreEP)){
+                con = enlace.Entrar(); 
+                ps = con.prepareCall(insertar);     
+                ps.setString(1,precioNuevo);
+                ps.setString(2,nombreP);
+                ps.setString(3, cantidad);
+                ps.executeUpdate(); 
             }
         }
         catch(Exception e)
@@ -157,7 +175,7 @@ public class ManipularAgregacionPartes {
         }
         // Handle any errors that may have occurred.
         catch (SQLException e) {
-            e.printStackTrace();
+           
         }
     }
      public String ObtenerIDDetalle() throws SQLException {
@@ -169,19 +187,7 @@ public class ManipularAgregacionPartes {
         }
       return(fila);
     }
-    public void asociarDetalleParte(){
-        String codigoD="";
-        try{
-            detalle();
-            codigoD= ObtenerIDDetalle();
-            reemplazarDatosDobles("relacionRegistroPartes", "codigoD",codigoD ,"numeroCO","nombreEP",numeroOrden, nombreEP);
-        }
-        catch(Exception e){
-                    
-        }          
-        
-        
-    }
+    
     public Double obtenerMontoVentaOrden() throws SQLException {
         leerDatosEspecificos("orden","numeroC",numeroOrden);
         String fila="";
@@ -221,6 +227,22 @@ public class ManipularAgregacionPartes {
 
             }
         }
+     
+    }
+    public void leerDatosEspecificosDobles(String tabla,String llave1,String llave2,String dato1,String dato2){
+        String leer = "SELECT * FROM "+tabla+" WHERE "+llave1+" ='"+dato1+"' AND "+llave2+"='"+dato2+"';";
+        System.out.println(leer);
+         try
+            {   con= enlace.Entrar();
+                Statement stmt = con.createStatement();           
+                rs = stmt.executeQuery(leer);                           
+            }
+            catch(Exception e)
+                
+                        
+            {
+
+            }
     }
     public void reemplazarDatosDobles(String tabla,String atributoD,String dato,String atributoL1,String atributoL2,
             String llave1,String llave2)

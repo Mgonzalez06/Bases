@@ -39,7 +39,7 @@ public class ManipularClientes {
        
        String fila="";
         while (rs.next()) {
-            fila+= rs.getString(1);
+            fila= rs.getString(1);
             System.out.println(fila);            
         }
       return(fila);

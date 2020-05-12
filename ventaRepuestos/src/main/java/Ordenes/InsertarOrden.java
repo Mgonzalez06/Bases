@@ -1,6 +1,7 @@
 package Ordenes;
 
 import Datos.ManipularDatosOrdenes;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -287,8 +288,8 @@ public class InsertarOrden extends javax.swing.JFrame {
     private void crearOrden()
     {
        datos.insertarOrden(t_fec.getText(),t_nom.getText(),t_monI.getText());
-       datos.realizarOrden();
-      
+       datos.realizarOrden(t_nom.getText());
+       
             
     }
            

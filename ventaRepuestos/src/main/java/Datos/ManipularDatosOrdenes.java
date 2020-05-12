@@ -6,11 +6,13 @@
 package Datos;
 
 import Conexion.Conexion;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -28,6 +30,7 @@ public class ManipularDatosOrdenes {
     String fila="";
     String nombreC="";
     String numeroOrden="";
+    String idC="";
     public ManipularDatosOrdenes(){
         this.con=null;
         this.enlace=new Conexion();
@@ -44,16 +47,27 @@ public class ManipularDatosOrdenes {
             ps.setString(3,"0");
             ps.setString(4, IVA);
             if(verificarCliente(nombreC)){
-                ps.executeUpdate(); 
+                int identificador =EstadoCliente();
+                if(identificador!=0){
+                    ps.executeUpdate();
+                    JOptionPane.showMessageDialog(null,"¡Agregue partes!");
+                   if (identificador==2)
+                       reemplazarDatos("cliente", "estado", "ACTIVO", "id", idC);
+                               
+                }
+                else
+                     JOptionPane.showMessageDialog(null,"Cliente suspendido.");
             }
             else{
-                System.out.println("No existe cliente con ese nombre");
+               
+                JOptionPane.showMessageDialog(null,"El cliente no existe.");
             }
         }
         catch(Exception e)
         {
             
-        }  
+        } 
+        
     }
     
     public void ultimaOrden(){
@@ -105,7 +119,7 @@ public class ManipularDatosOrdenes {
         }  
  
     }
-    public void realizarOrden(){
+    public void realizarOrden(String nombre){
       
         String numeroCO = "";
         String idC="";
@@ -113,24 +127,73 @@ public class ManipularDatosOrdenes {
         try{
             ultimaOrden();
             numeroCO= ObtenerOrden();
+            
             leerDatosEspecificos("persona","nombreC",nombreC);
-            if (rs.next()) 
+            if (rs.next()) {
                 idC=rs.getString(5);
-
+            }
+            
             leerDatosEspecificos("organizacion","nombre", nombreC);
-            if (rs.next()) 
+            if (rs.next()){
                 idC=rs.getString(8);
+                    
+            }
             con = enlace.Entrar(); 
             ps = con.prepareCall(insertar);
             ps.setString(1,idC);
             ps.setString(2,numeroCO);
-            ps.executeUpdate();    
+            ps.executeUpdate();  
+            
+              
         }
         catch(Exception e){
             
         }
         
     }
+    public void leerDatosTablas(String tabla,String nombreA,String nombre){
+      
+        try{
+            con= enlace.Entrar();
+            Statement stmt = con.createStatement();
+            String SQL = "SELECT * FROM " + tabla+" WHERE "+nombreA+" = idC IS NOT NULL;";
+            rs = stmt.executeQuery(SQL);
+            
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public int EstadoCliente(){
+        int estado=0;
+        try{
+           
+            leerDatosEspecificos("cliente","id", idC);
+            if (rs.next()) {
+                estado=rs.getString(2).length();
+
+            }
+            if(estado==8){
+                
+                return 2;
+            } 
+            else if(estado==10){
+                return 0;
+            }
+            else if(estado==6)
+                return 1;
+
+        }
+
+        catch(Exception e){
+            
+        }
+        return 1;
+       
+    }
+    
     public boolean verificarCliente(String nombre){
         
         leerDatosEspecificos("persona","nombreC",nombre);
@@ -138,10 +201,12 @@ public class ManipularDatosOrdenes {
         try{
            
         if (rs.next()) {
+            this.idC=rs.getString(5);
             return true;           
         }
         leerDatosEspecificos("organizacion","nombre", nombre);
         if (rs.next()) {
+            this.idC=rs.getString(8);
             return true;           
         }
         }
@@ -171,6 +236,8 @@ public class ManipularDatosOrdenes {
         try{
             con= enlace.Entrar();
             Statement stmt = con.createStatement();
+            
+
             String SQL = "SELECT * FROM " +tabla+" WHERE "+ atributo+" ='"+dato+"';";
             rs = stmt.executeQuery(SQL);
             

@@ -297,6 +297,7 @@ public class ManipularDatos {
         } catch (SQLException ex) {
             
         }
+        System.err.println("ID CLIENTE DESDE AGREGAR PERSONA "+idC);
         String insertar = "insert into persona (cedula,nombreC,direccionE,ciudad,idC)values (?,?,?,?,?)";
         try
         {
