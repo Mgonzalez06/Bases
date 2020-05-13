@@ -192,8 +192,7 @@ public class InsertarPersona extends javax.swing.JFrame {
     }//GEN-LAST:event_atrasInsertarPersonaMouseClicked
 
     private void insertarPersonaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertarPersonaMouseClicked
-       datos.agregarPersona(t_ced.getText(), t_nom.getText(),t_dir.getText(),t_ciu.getText());
-       datos.agregarTelefonos(t_tel.getText(), t_ced.getText());
+       datos.agregarPersona(t_ced.getText(), t_nom.getText(),t_dir.getText(),t_ciu.getText(),t_tel.getText());     
        limpiar();
     }//GEN-LAST:event_insertarPersonaMouseClicked
     

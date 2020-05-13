@@ -287,47 +287,53 @@ public class ManipularDatos {
             
         }
     }
-    public void agregarPersona(String cedula,String nombre,String direccion,String ciudad){
+    public void agregarPersona(String cedula,String nombre,String direccion,String ciudad,String telefono){
         agregarCliente();
         String idC="";
         ManipularClientes cliente = new ManipularClientes();
         cliente.cliente(enlace);
-        try {
-            idC =cliente.ObtenerIDCliente();
-        } catch (SQLException ex) {
-            
-        }
-        System.err.println("ID CLIENTE DESDE AGREGAR PERSONA "+idC);
-        String insertar = "insert into persona (cedula,nombreC,direccionE,ciudad,idC)values (?,?,?,?,?)";
+        leerDatosEspecificos("persona","cedula", cedula);
+        String insertar = "insert into persona (cedula,nombreC,direccionE,ciudad,idC)values (?,?,?,?,?)";      
         try
-        {
-            con = enlace.Entrar(); 
-            ps = con.prepareCall(insertar);
-            ps.setString(1,cedula);
-            ps.setString(2,nombre);
-            ps.setString(3,direccion);
-            ps.setString(4,ciudad);
-            ps.setString(5,idC);
-            ps.executeUpdate();
-                      
+        {   if(rs.next()){
+                JOptionPane.showMessageDialog(null,"Ya existe un cliente asociado con esa cédula");
+            }
+            else{
+                idC =cliente.ObtenerIDCliente();
+                con = enlace.Entrar(); 
+                ps = con.prepareCall(insertar);
+                ps.setString(1,cedula);
+                ps.setString(2,nombre);
+                ps.setString(3,direccion);
+                ps.setString(4,ciudad);
+                ps.setString(5,idC);
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(null,"Cliente registrado con éxito");
+                agregarTelefonos(telefono, cedula);
+            }         
         }
         catch(Exception e)
         {
             
         }
-       
     }
     public void agregarTelefonos(String telefono,String cedula){
         if(telefono.length()!=0)
         {
             String agregar = "insert into telefonosPersona(numero,cedulaP)values (?,?)";
             try
-            {
-                con= enlace.Entrar(); 
-                ps = con.prepareCall(agregar);
-                ps.setString(1,telefono);
-                ps.setString(2,cedula);                   
-                ps.executeUpdate();                         
+            {   
+                leerDatosEspecificos("telefonosPersona", "numero", telefono);
+                if(rs.next()){
+                    JOptionPane.showMessageDialog(null,"El teléfono ya se encuentra asociado a otro cliente");
+                }
+                else{
+                    con= enlace.Entrar(); 
+                    ps = con.prepareCall(agregar);
+                    ps.setString(1,telefono);
+                    ps.setString(2,cedula);                   
+                    ps.executeUpdate();                   
+                }
             }
             catch(Exception e){
 
@@ -336,29 +342,33 @@ public class ManipularDatos {
         }
     }
     public void agregarOrganizacion(String cedula,String nombre,String direccion,String ciudad,
-            String nombreCont,String telefonoCont,String cargoC){
+        String nombreCont,String telefonoCont,String cargoC){
         agregarCliente();
         String idC="";
         ManipularClientes cliente = new ManipularClientes();
         cliente.cliente(enlace);
-        try {
-            idC =cliente.ObtenerIDCliente();
-        } catch (SQLException ex) {
-            
-        }
         String insertar = "insert into organizacion (cedulaJ,nombre,direccionE,ciudad,nombreCC,telefonoC,cargoC,idC)values (?,?,?,?,?,?,?,?)";
         try{
-            con = enlace.Entrar();
-            ps = con.prepareCall(insertar);
-            ps.setString(1,cedula);
-            ps.setString(2,nombre);
-            ps.setString(3,direccion);
-            ps.setString(4,ciudad);
-            ps.setString(5,nombreCont);
-            ps.setString(6,telefonoCont);
-            ps.setString(7,cargoC);
-            ps.setString(8, idC);
-            ps.executeUpdate();
+
+            idC =cliente.ObtenerIDCliente();
+            leerDatosEspecificos("organizacion","cedulaJ", cedula);
+            if(rs.next()){
+                JOptionPane.showMessageDialog(null,"Ya existe un cliente asociado con esa cédula jurídica");
+            }
+            else{
+                con = enlace.Entrar();
+                ps = con.prepareCall(insertar);
+                ps.setString(1,cedula);
+                ps.setString(2,nombre);
+                ps.setString(3,direccion);
+                ps.setString(4,ciudad);
+                ps.setString(5,nombreCont);
+                ps.setString(6,telefonoCont);
+                ps.setString(7,cargoC);
+                ps.setString(8, idC);
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(null,"Cliente registrado con éxito");
+            }
             
         }
         catch(Exception e){
