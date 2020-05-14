@@ -53,11 +53,7 @@ create table cliente  -- TABLA 3
 (
 id int identity,
 estado varchar(30),
-numeroCO int,
 CONSTRAINT PKCLI PRIMARY KEY(id),
-CONSTRAINT FKREA FOREIGN KEY(numeroCO) REFERENCES orden(numeroC)
-ON DELETE SET NULL
-ON UPDATE CASCADE,
 )
 create table realizaOrden
 (
@@ -190,7 +186,7 @@ nombreCont varchar(50) not null,
 CONSTRAINT PKEMP PRIMARY KEY(nombre,direccion)
 )
 
-create table telefonoEmpresa  --TABLA 13
+create table telefonosEmpresa  --TABLA 13
 (
 numero int not null,
 
