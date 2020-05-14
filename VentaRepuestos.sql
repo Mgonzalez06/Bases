@@ -15,7 +15,7 @@ insert into cliente(estado) values('ACTIVO');
 DELETE FROM telefonosPersona
 
 --Resetea el identity de X tabla
-DBCC CHECKIDENT (detalle, RESEED,1)
+DBCC CHECKIDENT (orden, RESEED,2)
 
 --Actualiza datos de las tablas
 UPDATE persona 
@@ -33,7 +33,7 @@ use ventaRepuestos
 create table detalle  --TABLA 1
 (
 codigo int identity not null,
-precio float not null,
+precio decimal(10,2) not null,
 nombreP varchar(30) not null,
 cantidadV int,
 CONSTRAINT PKDET PRIMARY KEY(codigo),
@@ -42,9 +42,9 @@ create table orden
 (
 numeroC int identity not null,
 fecha date not null,
-montoVenta float,
-montoIVA float,
-montoTotal as montoVenta + ((montoIVA/100) * montoVenta), 
+montoVenta decimal(10,2),
+montoIVA int,
+montoTotal as montoVenta+ ((montoIVA* montoVenta) /100), 
 nombreC varchar(50) not null,
 
 CONSTRAINT PKORD PRIMARY KEY(numeroC),
@@ -71,7 +71,7 @@ CONSTRAINT FKORDE FOREIGN KEY(numeroCO) REFERENCES orden(numeroC)
 )
 create table organizacion  --TABLA 4
 (
-cedulaJ int not null,
+cedulaJ decimal(10) not null,
 nombre varchar(40) not null,
 direccionE varchar(50) not null,
 ciudad varchar(15) not  null,
@@ -83,20 +83,22 @@ telefonoC int,
 idC int,
 CONSTRAINT PKORG PRIMARY KEY(cedulaJ),
 UNIQUE (idC),
+UNIQUE (nombre),
 CONSTRAINT FKUNION FOREIGN KEY(idC) REFERENCES cliente(id)
 ON DELETE SET NULL
 
 )
 create table persona  --TABLA 5
 (
-cedula int not null,
+cedula decimal(9) not null,
 nombreC varchar(50) not null,
 direccionE varchar(50) not null,
 ciudad varchar(15) not null,
 idC int,
-cedulaJO int,
+cedulaJO decimal(10),
 CONSTRAINT PKPER PRIMARY KEY(cedula),
 UNIQUE (idC),
+UNIQUE (nombreC),
 CONSTRAINT FKUNI FOREIGN KEY(idC) REFERENCES cliente(id)
 
 ON DELETE SET NULL
@@ -109,7 +111,7 @@ ON DELETE SET NULL
 create table telefonosPersona  --TABLA 6
 (
 numero int not null,
-cedulaP int not null,
+cedulaP decimal(9) not null,
 
 CONSTRAINT PKTEL PRIMARY KEY(numero,cedulaP),
 CONSTRAINT FKPER FOREIGN KEY(cedulaP) REFERENCES persona(cedula)
@@ -204,8 +206,8 @@ ON UPDATE CASCADE,
 create table venta    --TABLA 14
 (
 codigo int  identity not null,
-precioP float,
-precioC float not null,
+precioP decimal(10,2),
+precioC decimal(10,2) not null,
 porcentajeG as ((precioC-precioP)/precioC)*100,
 
 nombreE varchar(30),
@@ -247,15 +249,15 @@ insert into automovil(codigo,modelo,añoF,detalleA,nombreF) values(1,'2019',2020,
 insert into fabricantePartes(nombre) values('simple');
 insert into fabricantePartes(nombre) values('compuesto');
 insert into parte(nombreE, marca,nombreF) values('aro','yiyo','compuesto');
-
-insert into parte(nombreE, marca,nombreF) values('llanta','yiyo','simple');
-insert into orden(fecha,nombreC,montoIVA) values('12/05/2020','Liseth Gonzalez',13);
-insert into venta(precioP,precioC,nombreE,direccionE,nombreEP) values(2000.00,3000.00,'Motociclo','500m oeste Banco Nacional','llanta');
 insert into empresaProveedora(nombre,direccion,ciudad,nombreCont) values('motociclo','100m oeste esc san pedro','Heredia','Juanito Perez Mesa');
+insert into parte(nombreE, marca,nombreF) values('llanta','yiyo','simple');
+insert into orden(fecha,nombreC,montoIVA) values ('2020/05/12','Liseth Gonzalez',13);
+
+insert into venta(precioP,precioC,nombreE,direccionE,nombreEP) values(2000.00,3000.00,'Motociclo','500m oeste Banco Nacional','llanta');
 insert into detalle(precio,nombreP,cantidadV) values(1000.00,'motociclo',2);
 SELECT * FROM relacionRegistroPartes WHERE numeroCO=11
-SELECT * FROM persona where nombreC= 'Juanita Perez' 
-SELECT * FROM orden
+SELECT * FROM orden where nombreC= 'Juanita Perez' 
+SELECT * FROM detalle
 SELECT * FROM empresaProveedora
 SELECT * FROM venta WHERE nombreE ='motociclo' AND nombreEP='llanta';
 DELETE FROM realizaOrden

@@ -155,6 +155,8 @@ public class InsertarParteOrden extends javax.swing.JFrame {
     
     private void atrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atrasMouseClicked
         limpiar();
+        ventanaIO.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_atrasMouseClicked
 
     /**

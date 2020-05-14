@@ -23,7 +23,7 @@ public class ManipularAgregacionPartes {
     ResultSet rs;
     String fila="";
     String numeroOrden="";
-    String precio="";
+    int precio=0;
     String cantidad = "";
     String nombreEP="";
     
@@ -132,7 +132,8 @@ public class ManipularAgregacionPartes {
         leerDatosEspecificosDobles("venta", "nombreE", "nombreEP", nombreP, nombreEP);
         try{
             if(rs.next()){
-                this.precio=rs.getString(3);
+                this.precio=(Math.round(Float.valueOf(rs.getString(2))));
+                System.err.println(rs.getString(2)+rs.getString(3)+"BUSCANDO EL PRECIO DE LA PARTE");
                 return true;
                 
             }
@@ -147,11 +148,14 @@ public class ManipularAgregacionPartes {
     public void agregarDetalle(String cantidad,String nombreP,String nombreEP){
         String insertar = "insert into detalle(precio,nombreP,cantidadV) values (?,?,?)";
         this.cantidad = cantidad;
-        buscarPrecioParte(nombreP, nombreEP);
-        String precioNuevo=String.valueOf((Double.parseDouble(precio))*(Double.parseDouble(cantidad)));
+        boolean verificador =buscarPrecioParte(nombreP, nombreEP);
+        System.out.println(verificador+"ESTE ES EL VERIFICADOR");
         
+        System.out.println(precio+"QUIERO VER EL CASTEO");
+        String precioNuevo=String.valueOf(((precio))*(Integer.parseInt(cantidad)));
+        System.out.println(precioNuevo+ "ESTE ES EL PRECIO NUEVO");
         try
-        {   if(buscarPrecioParte(nombreP, nombreEP)){
+        {   if(verificador==true){
                 con = enlace.Entrar(); 
                 ps = con.prepareCall(insertar);     
                 ps.setString(1,precioNuevo);
@@ -199,7 +203,7 @@ public class ManipularAgregacionPartes {
         return Double.parseDouble(fila);
     }
     public void cambiarMontoVentaOrden() throws SQLException{
-        String precioVenta= String.valueOf(obtenerMontoVentaOrden()+ (Double.parseDouble(precio)*Double.parseDouble(cantidad)));
+        String precioVenta= String.valueOf(obtenerMontoVentaOrden()+ ((precio)*Integer.parseInt(cantidad)));
         reemplazarDatos("orden","montoVenta",precioVenta,"numeroC", numeroOrden);
         
     }

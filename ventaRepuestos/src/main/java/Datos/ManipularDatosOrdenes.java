@@ -40,28 +40,21 @@ public class ManipularDatosOrdenes {
         this.nombreC = nombreC;
         try
         {
-            con = enlace.Entrar(); 
-            ps = con.prepareCall(insertar);
-            ps.setString(1,fecha);
-            ps.setString(2,nombreC);
-            ps.setString(3,"0");
-            ps.setString(4, IVA);
-            if(verificarCliente(nombreC)){
-                int identificador =EstadoCliente();
-                if(identificador!=0){
-                    ps.executeUpdate();
-                    JOptionPane.showMessageDialog(null,"¡Agregue partes!");
-                   if (identificador==2)
-                       reemplazarDatos("cliente", "estado", "ACTIVO", "id", idC);
-                               
-                }
-                else
-                     JOptionPane.showMessageDialog(null,"Cliente suspendido.");
-            }
-            else{
+            boolean verificador = verificarCliente(nombreC);
+            System.out.println(verificador+"VERIFICADOR");
+            if(verificador==true){
+                ps=null;
+                con = enlace.Entrar(); 
+                ps = con.prepareCall(insertar);
+                ps.setString(1,fecha);
+                ps.setString(2,nombreC); 
+                ps.setString(3,"0000000000.00"); 
+                ps.setString(4, IVA);
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(null,"¡Agregue partes!");
                
-                JOptionPane.showMessageDialog(null,"El cliente no existe.");
             }
+           
         }
         catch(Exception e)
         {
@@ -166,52 +159,76 @@ public class ManipularDatosOrdenes {
         }
     }
     
-    public int EstadoCliente(){
-        int estado=0;
-        try{
-           
-            leerDatosEspecificos("cliente","id", idC);
-            if (rs.next()) {
-                estado=rs.getString(2).length();
-
-            }
-            if(estado==8){
-                
-                return 2;
-            } 
-            else if(estado==10){
-                return 0;
-            }
-            else if(estado==6)
-                return 1;
-
-        }
-
-        catch(Exception e){
-            
-        }
-        return 1;
-       
-    }
     
     public boolean verificarCliente(String nombre){
         
-        leerDatosEspecificos("persona","nombreC",nombre);
-       
-        try{
-           
-        if (rs.next()) {
-            this.idC=rs.getString(5);
-            return true;           
-        }
-        leerDatosEspecificos("organizacion","nombre", nombre);
-        if (rs.next()) {
-            this.idC=rs.getString(8);
-            return true;           
-        }
+        String SQL="";
+        String reemplazo="";
+        Statement stmt;
+        int estado;       
+        try{           
+            this.con= enlace.Entrar();
+            stmt = con.createStatement();
+            SQL= "SELECT * FROM persona WHERE nombreC ='"+nombre+"';";
+            rs = stmt.executeQuery(SQL);
+            if (rs.next()) {
+                System.out.println("EXISTE LA PERSONA");
+                this.idC=rs.getString(5);    
+                SQL = "SELECT * FROM cliente WHERE id ='"+idC+"';";
+                rs = stmt.executeQuery(SQL);
+                if (rs.next()) {
+                    estado=rs.getString(2).length();
+                    System.out.println(estado + "    ESTADO");
+                    if(estado==6){
+                        return true;
+                    }
+                    else if(estado==8){
+                         reemplazo="UPDATE cliente SET estado= 'ACTIVO' WHERE id=?";
+                         ps = con.prepareCall(reemplazo);
+                         ps.setString(1, idC);
+                         ps.executeUpdate();
+                         return true;
+
+                    }
+                   
+                    else if(estado==10){
+                        JOptionPane.showMessageDialog(null,"Cliente suspendido.");
+                        return false;
+                    }
+                    
+                    }
+                
+            }
+            SQL= "SELECT * FROM organizacion WHERE nombre ='"+nombre+"';";
+            rs = stmt.executeQuery(SQL);
+            if (rs.next()) {
+                this.idC=rs.getString(8);
+
+                SQL = "SELECT * FROM cliente WHERE id ='"+idC+"';";
+                rs = stmt.executeQuery(SQL);
+                if (rs.next()) {
+                    estado=rs.getString(2).length();
+                    if(estado==8){
+                         reemplazo="UPDATE cliente SET estado= 'ACTIVO' WHERE id=?";
+                         ps = con.prepareCall(reemplazo);
+                         ps.setString(1, idC);
+                         ps.executeUpdate();
+                         return true;
+
+                    }
+                  
+                    else if(estado==10){
+                        JOptionPane.showMessageDialog(null,"Cliente suspendido.");
+                        return false;
+                    }
+                   
+                }
+                 return true;
+            }
         }
         catch(Exception e){       
         }   
+         JOptionPane.showMessageDialog(null,"El cliente no exite.");
         return false;
     }
     
@@ -246,7 +263,7 @@ public class ManipularDatosOrdenes {
         catch (SQLException e) {
             e.printStackTrace();
         }      
-         
+        
     }
      public void leerDatosEspecificosSegundoDato(String tabla,String  atributo,String dato)
      {
