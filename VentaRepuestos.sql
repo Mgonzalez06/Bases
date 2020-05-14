@@ -109,7 +109,7 @@ create table telefonosPersona  --TABLA 6
 numero int not null,
 cedulaP decimal(9) not null,
 
-CONSTRAINT PKTEL PRIMARY KEY(numero,cedulaP),
+CONSTRAINT PKTEL PRIMARY KEY(numero),
 CONSTRAINT FKPER FOREIGN KEY(cedulaP) REFERENCES persona(cedula)
 
 ON UPDATE CASCADE,
