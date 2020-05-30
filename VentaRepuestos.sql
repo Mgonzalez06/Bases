@@ -15,7 +15,7 @@ insert into cliente(estado) values('ACTIVO');
 DELETE FROM telefonosPersona
 
 --Resetea el identity de X tabla
-DBCC CHECKIDENT (orden, RESEED,2)
+DBCC CHECKIDENT (orden, RESEED,0)
 
 --Actualiza datos de las tablas
 UPDATE persona 
@@ -251,9 +251,18 @@ insert into orden(fecha,nombreC,montoIVA) values ('2020/05/12','Liseth Gonzalez'
 
 insert into venta(precioP,precioC,nombreE,direccionE,nombreEP) values(2000.00,3000.00,'Motociclo','500m oeste Banco Nacional','llanta');
 insert into detalle(precio,nombreP,cantidadV) values(1000.00,'motociclo',2);
-SELECT * FROM relacionRegistroPartes WHERE numeroCO=11
+SELECT * FROM persona
+delete from persona
+SELECT * FROM persona WHERE idC IS NOT NULL;
 SELECT * FROM orden where nombreC= 'Juanita Perez' 
 SELECT * FROM detalle
+SELECT estado
+	FROM persona,cliente
+	WHERE persona.idC=cliente.id AND persona.nombreC='liseth gonzalez'
+	SELECT cliente.estado,persona.idC FROM persona,cliente WHERE persona.idC=cliente.id AND persona.nombreC='liseth gonzalez';
+	   
+	UPDATE cliente SET estado='SUSPENDIDO' FROM persona,cliente WHERE persona.idC=cliente.id AND persona.cedula=504330070;
+              
 SELECT * FROM empresaProveedora
 SELECT * FROM venta WHERE nombreE ='motociclo' AND nombreEP='llanta';
 DELETE FROM realizaOrden
