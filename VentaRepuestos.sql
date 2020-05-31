@@ -167,13 +167,14 @@ create table relacionRegistroPartes
 numeroCO int not null,
 nombreEP varchar(40) not null,
 codigoD int not null,
-marcaP varchar(30),
-nombreFP varchar(30),
+marcaP varchar(30) not null,
+nombreFP varchar(30) not null,
 CONSTRAINT PKRELRP PRIMARY KEY(numeroCO,nombreEP,codigoD),
 CONSTRAINT FKTIE FOREIGN KEY(codigoD) REFERENCES detalle(codigo),
 CONSTRAINT FKORD FOREIGN KEY(numeroCO) REFERENCES orden(numeroC)
 ON UPDATE CASCADE,
 CONSTRAINT FKNOMEP FOREIGN KEY(nombreEP,marcaP,nombreFP) REFERENCES parte(nombreE,marca,nombreF)
+ON DELETE NO ACTION
 ON UPDATE CASCADE
 )
 create table empresaProveedora   --TABLA 12
@@ -251,10 +252,10 @@ insert into orden(fecha,nombreC,montoIVA) values ('2020/05/12','Liseth Gonzalez'
 
 insert into venta(precioP,precioC,nombreE,direccionE,nombreEP) values(2000.00,3000.00,'Motociclo','500m oeste Banco Nacional','llanta');
 insert into detalle(precio,nombreP,cantidadV) values(1000.00,'motociclo',2);
-SELECT * FROM persona
-delete from persona
+SELECT * FROM parte
+delete from parte where (nombreE,marca,nombreF) =('llanta','yiyo','simple');
 SELECT * FROM persona WHERE idC IS NOT NULL;
-SELECT * FROM orden where nombreC= 'Juanita Perez' 
+SELECT * FROM orden 
 SELECT * FROM detalle
 SELECT estado
 	FROM persona,cliente
@@ -263,7 +264,7 @@ SELECT estado
 	   
 	UPDATE cliente SET estado='SUSPENDIDO' FROM persona,cliente WHERE persona.idC=cliente.id AND persona.cedula=504330070;
               
-SELECT * FROM empresaProveedora
+SELECT * FROM relacionRegistroPartes
 SELECT * FROM venta WHERE nombreE ='motociclo' AND nombreEP='llanta';
 DELETE FROM realizaOrden
 DELETE FROM relacionRegistroPartes

@@ -145,6 +145,7 @@ Ordenes\InsertarOrden$9.class
 Datos\ManipularDatos.class
 Ordenes\InsertarOrden$2.class
 Organizaciones\ModificarOrganización$2.class
+Partes\BorrarParte$4.class
 Partes\Partes$2.class
 Menus\Clientes$6.class
 Personas\SuspenderPersona$7.class

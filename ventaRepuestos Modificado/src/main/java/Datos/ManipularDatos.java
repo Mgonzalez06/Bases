@@ -21,6 +21,7 @@ public class ManipularDatos {
     Conexion enlace;
     public JTextArea areaTexto;
     PreparedStatement ps;
+    PreparedStatement ps2;
     ResultSet rs;
     String fila="";
     public ManipularDatos(){
@@ -78,6 +79,42 @@ public class ManipularDatos {
         catch(Exception e)
         {            
         }
+    }
+    public void borrarParte(String nombreE, String marca, String nombreF){
+        String eliminar = "DELETE FROM parte WHERE nombreE='"+nombreE+"' and marca='"+marca+"' and nombreF='"+nombreF+"';";
+        boolean verificador=verificarParte(nombreE, marca, nombreF);
+        try
+        {   
+            con= enlace.Entrar();
+            Statement stmt = con.createStatement();
+            if(verificador==true)
+                stmt.executeQuery(eliminar);                                   
+        }
+        catch(Exception e)
+        {            
+        }
+    }
+    public boolean verificarParte(String nombreE,String marca,String nombreF){
+        String SQL="";     
+        Statement stmt;             
+        try{ 
+            con= enlace.Entrar();
+            stmt = con.createStatement();           
+            SQL = "SELECT * FROM relacionRegistroPartes WHERE nombreEP='"+nombreE+"' AND marcaP='"+marca+"' AND nombreFP='"+nombreF+"';";        
+            rs = stmt.executeQuery(SQL);
+            if (rs.next()) {                                
+                JOptionPane.showMessageDialog(null,"Parte asociada a orden");
+                return false;
+            }
+            else{
+                JOptionPane.showMessageDialog(null,"Parte borrada");
+                return true;
+            }
+        }
+        catch(Exception e){
+            
+        }                     
+      return true;
     }
     public void resetearIdentity(String tabla){        
         String identity = "DBCC CHECKIDENT ("+tabla+", RESEED,0)";

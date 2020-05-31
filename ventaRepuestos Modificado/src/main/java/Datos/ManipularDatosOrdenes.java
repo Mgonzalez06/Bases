@@ -100,9 +100,7 @@ public class ManipularDatosOrdenes {
     public void verprecios(JTextField montoV,JTextField montoT){
         leerDatosEspecificos("orden", "numeroC", numeroOrden);
          try{
-            while (rs.next()) {
-               
-                
+            while (rs.next()) {                
                 montoV.setText(rs.getString(3).toString());
                 montoT.setText(rs.getString(5).toString());
             }

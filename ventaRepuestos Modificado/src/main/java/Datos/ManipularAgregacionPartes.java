@@ -83,8 +83,8 @@ public class ManipularAgregacionPartes {
         return false;
              
     }
-    public void insertarParteEnOrden(String nombreEP){
-        String insertar = "insert into relacionRegistroPartes (numeroCO,nombreEP,codigoD)values (?,?,?)";
+    public void insertarParteEnOrden(String nombreEP,String marca,String fabricante){
+        String insertar = "insert into relacionRegistroPartes (numeroCO,nombreEP,codigoD,marcaP,nombreFP)values (?,?,?,?,?)";
         ultimaOrden();
         String codigoD="";
         this.nombreEP=nombreEP;
@@ -103,6 +103,8 @@ public class ManipularAgregacionPartes {
             ps.setString(1,numeroOrden);
             ps.setString(2,nombreEP);
             ps.setString(3, codigoD);
+            ps.setString(4, marca);
+            ps.setString(5, fabricante);
             if(verificarParte(nombreEP))
                 ps.executeUpdate(); 
             else{
