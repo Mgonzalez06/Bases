@@ -38,13 +38,14 @@ nombreP varchar(30) not null,
 cantidadV int,
 CONSTRAINT PKDET PRIMARY KEY(codigo),
 )
+  
 create table orden
 (
 numeroC int identity not null,
 fecha date not null,
 montoVenta decimal(10,2),
-montoIVA decimal (10,2),
-montoTotal as montoVenta+montoIVA,--* montoVenta) /100), 
+montoIVA int,
+montoTotal as montoVenta+ ((montoIVA* montoVenta) /100), 
 nombreC varchar(50) not null,
 
 CONSTRAINT PKORD PRIMARY KEY(numeroC),
@@ -149,7 +150,7 @@ nombreE varchar(40) not null,
 marca varchar(30) not null,
 --automovilC varchar(50) not null,
 
-nombreF varchar(30),
+nombreF varchar(30) not null,
 codigoA int,
 
 
@@ -167,14 +168,13 @@ create table relacionRegistroPartes
 numeroCO int not null,
 nombreEP varchar(40) not null,
 codigoD int not null,
-marcaP varchar(30) not null,
-nombreFP varchar(30) not null,
+marcaP varchar(30),
+nombreFP varchar(30),
 CONSTRAINT PKRELRP PRIMARY KEY(numeroCO,nombreEP,codigoD),
 CONSTRAINT FKTIE FOREIGN KEY(codigoD) REFERENCES detalle(codigo),
 CONSTRAINT FKORD FOREIGN KEY(numeroCO) REFERENCES orden(numeroC)
 ON UPDATE CASCADE,
 CONSTRAINT FKNOMEP FOREIGN KEY(nombreEP,marcaP,nombreFP) REFERENCES parte(nombreE,marca,nombreF)
-ON DELETE NO ACTION
 ON UPDATE CASCADE
 )
 create table empresaProveedora   --TABLA 12
@@ -218,7 +218,6 @@ CONSTRAINT FKVENO FOREIGN KEY(nombreE,direccionE) REFERENCES empresaProveedora(n
 ON DELETE SET NULL
 ON UPDATE CASCADE,
 CONSTRAINT FKFP FOREIGN KEY(nombreEP,marcaParte,nomFab) REFERENCES parte(nombreE,marca,nombreF)
-ON DELETE SET NULL
 ON UPDATE CASCADE,
 )
 create table vehiculosPartes   --TABLA 15
@@ -233,10 +232,21 @@ CONSTRAINT FKCodeV FOREIGN KEY(codigoVehiculo) REFERENCES automovil(codigo)
 
 ON UPDATE CASCADE,
 CONSTRAINT FKnomParte FOREIGN KEY(nombreParte,marcaParte,fabricanteParte) REFERENCES parte(nombreE,marca,nombreF)
+ON DELETE CASCADE 
+ON UPDATE CASCADE,
 
-ON UPDATE CASCADE
 
 )
+--AGREGAR RESTRICCIONES
+
+ALTER TABLE venta ADD CONSTRAINT candidateKeyProv UNIQUE(nombreE);   
+ALTER TABLE venta ADD CONSTRAINT candidateKeyMarcaParte UNIQUE(marcaParte);  
+ALTER TABLE venta ADD CONSTRAINT candidateKeyFabricanteParte UNIQUE(nomFab);  
+ALTER TABLE detalle ADD CONSTRAINT FKNP FOREIGN KEY (nombreP) REFERENCES venta(nombreE) ON DELETE NO ACTION;
+ALTER TABLE detalle ADD marcaParte varchar(30);
+ALTER TABLE detalle ADD nombreFabricanteParte varchar(30);
+ALTER TABLE detalle ADD CONSTRAINT FKParteMarca FOREIGN KEY (marcaParte) REFERENCES venta(marcaParte) ON DELETE NO ACTION;
+ALTER TABLE detalle ADD CONSTRAINT FKParteFab FOREIGN KEY (nombreFabricanteParte) REFERENCES venta(nomFab) ON DELETE NO ACTION;
 
 
 --PRUEBAS IGNORE EL LUGAR DONDE LAS HAGOO
@@ -252,10 +262,10 @@ insert into orden(fecha,nombreC,montoIVA) values ('2020/05/12','Liseth Gonzalez'
 
 insert into venta(precioP,precioC,nombreE,direccionE,nombreEP) values(2000.00,3000.00,'Motociclo','500m oeste Banco Nacional','llanta');
 insert into detalle(precio,nombreP,cantidadV) values(1000.00,'motociclo',2);
-SELECT * FROM venta
-delete from parte where (nombreE,marca,nombreF) =('llanta','yiyo','simple');
+SELECT * FROM persona
+delete from persona
 SELECT * FROM persona WHERE idC IS NOT NULL;
-SELECT * FROM orden 
+SELECT * FROM orden where nombreC= 'Juanita Perez' 
 SELECT * FROM detalle
 SELECT estado
 	FROM persona,cliente
@@ -264,10 +274,12 @@ SELECT estado
 	   
 	UPDATE cliente SET estado='SUSPENDIDO' FROM persona,cliente WHERE persona.idC=cliente.id AND persona.cedula=504330070;
               
-SELECT * FROM relacionRegistroPartes
+SELECT * FROM empresaProveedora
 SELECT * FROM venta WHERE nombreE ='motociclo' AND nombreEP='llanta';
 DELETE FROM realizaOrden
 DELETE FROM relacionRegistroPartes
 DELETE FROM detalle
-DELETE FROM parte
+DELETE FROM parte where nombreE = 'Puerta' AND marca = 'Marca' AND nombreF = 'AJS Auto Parts';
 DELETE FROM orden
+SELECT nombreParte,marcaParte,fabricanteParte FROM (automovil INNER JOIN vehiculosPartes ON  codigo = codigoVehiculo AND codigo = 1);
+

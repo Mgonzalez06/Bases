@@ -437,12 +437,12 @@ public class ManipularDatos {
             }
             
             
-                SQL = "SELECT * FROM vehiculosPartes;";
+                SQL = "SELECT nombreParte, marcaParte, fabricanteParte FROM (automovil INNER JOIN vehiculosPartes ON  codigo = codigoVehiculo AND codigo = " + array.get(0)+");"; //"SELECT * FROM vehiculosPartes;"; 
                 rs = stmt.executeQuery(SQL);
                 while(rs.next()){
-                    System.out.println(rs.getInt(1));
-                    if(rs.getInt(1) == array.get(0))
-                        listado+=rs.getString(2) + "\t" + rs.getString(3) + " \t" + modelo + "\t" +ano + "\t" + rs.getString(4) + "\n" ;
+                    
+                    //if(rs.getInt(1) == array.get(0))
+                    listado+=rs.getString(1) + "\t" + rs.getString(2) + " \t" + modelo + "\t" +ano + "\t" + rs.getString(3) + "\n" ;
                 }
             
             return listado;
