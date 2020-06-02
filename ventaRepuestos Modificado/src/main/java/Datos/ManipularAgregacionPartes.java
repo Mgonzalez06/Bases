@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JTextField;
 
 /**
  *
@@ -223,6 +224,23 @@ public class ManipularAgregacionPartes {
         String precioVenta= String.valueOf(obtenerMontoVentaOrden()+ ((precio)*Integer.parseInt(cantidad)));
         reemplazarDatos("orden","montoVenta",precioVenta,"numeroC", numeroOrden);
         
+    }
+    public void actualizarMontoIVA(){
+        leerDatosEspecificos("orden", "numeroC", numeroOrden);
+        String montoIVa="";
+        float modificado;
+         try{
+            while (rs.next()) {                             
+                montoIVa= String.valueOf(rs.getString(3).toString());
+                modificado = Float.parseFloat(montoIVa)* (float)0.13;
+                montoIVa=String.valueOf(modificado);
+                System.out.println(montoIVa + "Monto IVA");
+                reemplazarDatos("orden","montoIVA",montoIVa,"numeroC", numeroOrden);
+            }
+         }
+         catch(Exception e){
+             
+         }
     }
     public void reemplazarDatos(String tabla,String atributoD,String dato,String atributoL,String llave)
     {

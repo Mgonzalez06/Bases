@@ -35,7 +35,7 @@ public class ManipularDatosOrdenes {
         this.con=null;
         this.enlace=new Conexion();
     }
-    public void insertarOrden(String fecha,String nombreC,String IVA){
+    public void insertarOrden(String fecha,String nombreC){
         String insertar = "insert into orden(fecha,nombreC,montoVenta,montoIVA) values (?,?,?,?)";
         this.nombreC = nombreC;
         try
@@ -49,7 +49,7 @@ public class ManipularDatosOrdenes {
                 ps.setString(1,fecha);
                 ps.setString(2,nombreC); 
                 ps.setString(3,"0000000000.00"); 
-                ps.setString(4, IVA);
+                ps.setString(4,"0000000000.00");
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(null,"¡Agregue partes!");
                
@@ -97,11 +97,13 @@ public class ManipularDatosOrdenes {
       numeroOrden=fila;
       return(fila);
     }
-    public void verprecios(JTextField montoV,JTextField montoT){
+    
+    public void verprecios(JTextField montoV,JTextField montoT,JTextField montoI){
         leerDatosEspecificos("orden", "numeroC", numeroOrden);
          try{
             while (rs.next()) {                
                 montoV.setText(rs.getString(3).toString());
+                montoI.setText(rs.getString(4).toString());
                 montoT.setText(rs.getString(5).toString());
             }
             }

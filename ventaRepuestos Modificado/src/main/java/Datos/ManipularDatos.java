@@ -295,7 +295,7 @@ public class ManipularDatos {
         }
     }
     public void agregarCliente(){
-        String insertar= "insert into cliente (estado)values ('INACTIVO')";
+        String insertar= "insert into cliente (estado)values ('ACTIVO')";
         try{
          con = enlace.Entrar();
          ps = con.prepareCall(insertar);

@@ -43,8 +43,8 @@ create table orden
 numeroC int identity not null,
 fecha date not null,
 montoVenta decimal(10,2),
-montoIVA int,
-montoTotal as montoVenta+ ((montoIVA* montoVenta) /100), 
+montoIVA decimal (10,2),
+montoTotal as montoVenta+montoIVA,--* montoVenta) /100), 
 nombreC varchar(50) not null,
 
 CONSTRAINT PKORD PRIMARY KEY(numeroC),
@@ -252,7 +252,7 @@ insert into orden(fecha,nombreC,montoIVA) values ('2020/05/12','Liseth Gonzalez'
 
 insert into venta(precioP,precioC,nombreE,direccionE,nombreEP) values(2000.00,3000.00,'Motociclo','500m oeste Banco Nacional','llanta');
 insert into detalle(precio,nombreP,cantidadV) values(1000.00,'motociclo',2);
-SELECT * FROM parte
+SELECT * FROM venta
 delete from parte where (nombreE,marca,nombreF) =('llanta','yiyo','simple');
 SELECT * FROM persona WHERE idC IS NOT NULL;
 SELECT * FROM orden 

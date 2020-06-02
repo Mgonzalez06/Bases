@@ -158,12 +158,15 @@ public class InsertarParteOrden extends javax.swing.JFrame {
         datos.agregarDetalle(t_cant.getText(), t_prov.getText(),t_nom.getText());
         datos.insertarParteEnOrden(t_nom.getText(),t_marc.getText(),t_fabr.getText());
         datos.cambiarMontoVentaOrden();
+        datos.actualizarMontoIVA();
         
     }
     private void limpiar(){
         t_cant.setText("");
         t_nom.setText("");
         t_prov.setText("");
+        t_fabr.setText("");
+        t_marc.setText("");
     }
     private void okMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_okMouseClicked
         try {
