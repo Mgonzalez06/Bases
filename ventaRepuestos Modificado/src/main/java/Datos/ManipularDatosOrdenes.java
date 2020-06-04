@@ -48,8 +48,8 @@ public class ManipularDatosOrdenes {
                 ps = con.prepareCall(insertar);
                 ps.setString(1,fecha);
                 ps.setString(2,nombreC); 
-                ps.setString(3,"0000000000.00"); 
-                ps.setString(4,"0000000000.00");
+                ps.setInt(3,0000000000); 
+                ps.setInt(4,0000000000);
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(null,"¡Agregue partes!");
                

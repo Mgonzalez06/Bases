@@ -212,6 +212,7 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="crearMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="crearActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
@@ -228,6 +229,7 @@
       <SubComponents>
         <Component class="javax.swing.JTextArea" name="detalles">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
           </Properties>
@@ -235,6 +237,9 @@
       </SubComponents>
     </Container>
     <Component class="javax.swing.JTextField" name="t_monV">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="t_monVActionPerformed"/>
       </Events>
@@ -245,6 +250,9 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="t_monT">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="t_monTActionPerformed"/>
       </Events>
@@ -284,6 +292,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="t_monIVA">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="t_monIVAActionPerformed"/>
       </Events>

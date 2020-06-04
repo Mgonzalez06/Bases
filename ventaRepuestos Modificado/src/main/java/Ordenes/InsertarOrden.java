@@ -89,13 +89,20 @@ public class InsertarOrden extends javax.swing.JFrame {
                 crearMouseClicked(evt);
             }
         });
+        crear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crearActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Detalles:");
 
+        detalles.setEditable(false);
         detalles.setColumns(20);
         detalles.setRows(5);
         jScrollPane1.setViewportView(detalles);
 
+        t_monV.setEditable(false);
         t_monV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 t_monVActionPerformed(evt);
@@ -108,6 +115,7 @@ public class InsertarOrden extends javax.swing.JFrame {
             }
         });
 
+        t_monT.setEditable(false);
         t_monT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 t_monTActionPerformed(evt);
@@ -139,6 +147,7 @@ public class InsertarOrden extends javax.swing.JFrame {
 
         jLabel5.setText("Monto IVA:");
 
+        t_monIVA.setEditable(false);
         t_monIVA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 t_monIVAActionPerformed(evt);
@@ -320,6 +329,10 @@ public class InsertarOrden extends javax.swing.JFrame {
     private void t_monIVAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_monIVAActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_t_monIVAActionPerformed
+
+    private void crearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_crearActionPerformed
 
     /**
      * @param args the command line arguments

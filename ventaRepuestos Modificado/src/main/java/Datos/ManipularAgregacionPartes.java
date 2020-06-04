@@ -95,7 +95,7 @@ public class ManipularAgregacionPartes {
             detalle();
             codigoD= ObtenerIDDetalle();
         } catch (SQLException ex) {
-            
+             System.out.println("Salio mal");
         }
         try
         {
@@ -174,7 +174,7 @@ public class ManipularAgregacionPartes {
         }
         catch(Exception e)
         {
-            
+            System.out.println("Salio mal");
         }  
     }
     public void detalle(){
