@@ -242,7 +242,7 @@ ON UPDATE CASCADE,
 ALTER TABLE venta ADD CONSTRAINT candidateKeyProv UNIQUE(nombreE);   
 ALTER TABLE venta ADD CONSTRAINT candidateKeyMarcaParte UNIQUE(marcaParte);  
 ALTER TABLE venta ADD CONSTRAINT candidateKeyFabricanteParte UNIQUE(nomFab);  
-ALTER TABLE detalle ADD CONSTRAINT FKNP FOREIGN KEY (nombreP) REFERENCES venta(nombreE) ON DELETE NO ACTION;
+ALTER TABLE detalle ADD CONSTRAINT FKNP FOREIGN KEY (nombreP) REFERENCES venta(nombreE);
 ALTER TABLE detalle ADD marcaParte varchar(30);
 ALTER TABLE detalle ADD nombreFabricanteParte varchar(30);
 ALTER TABLE detalle ADD CONSTRAINT FKParteMarca FOREIGN KEY (marcaParte) REFERENCES venta(marcaParte) ON DELETE NO ACTION;
