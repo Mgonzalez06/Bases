@@ -55,7 +55,7 @@ public class AsociarParteProvedor extends javax.swing.JFrame {
 
         jLabel2.setText("Indique el nombre del provedor a asociar:");
 
-        buttonCancelar.setText("Cancelar");
+        buttonCancelar.setText("Atras");
         buttonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelarActionPerformed(evt);
@@ -179,10 +179,13 @@ public class AsociarParteProvedor extends javax.swing.JFrame {
 
     private void buttonFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFinalizarActionPerformed
         // TODO add your handling code here:
-        if(manipulador.agregarProvedor_Parte(textFieldNomParte.getText(),textFieldMarca.getText(),textFieldnomFab.getText(), textFieldProvedor.getText(),jTextField1.getText(),Integer.parseInt(textFieldPrecio.getText()),Integer.parseInt(textFieldProcentaje.getText())))
+        int accion = manipulador.agregarProvedor_Parte(textFieldNomParte.getText(),textFieldMarca.getText(),textFieldnomFab.getText(), textFieldProvedor.getText(),jTextField1.getText(),Integer.parseInt(textFieldPrecio.getText()),Integer.parseInt(textFieldProcentaje.getText()));
+        if(accion ==0)
              JOptionPane.showMessageDialog(this,"Asociacion exitosa","EXITOSO",JOptionPane.QUESTION_MESSAGE);
+        else if(accion == 1)
+            JOptionPane.showMessageDialog(this,"Ha ocurrido un error, esta asociacion ya existe.","ERROR",JOptionPane.ERROR_MESSAGE);
         else
-             JOptionPane.showMessageDialog(this,"Ha ocurrido un error, verifique que los datos de: PARTE,PROVEDOR esten registrados en la base de datos","ERROR",JOptionPane.ERROR_MESSAGE);
+             JOptionPane.showMessageDialog(this,"Ha ocurrido un error, verifique que los datos de: PARTE y PROVEEDOR esten registrados en la base de datos","ERROR",JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_buttonFinalizarActionPerformed
 
     /**

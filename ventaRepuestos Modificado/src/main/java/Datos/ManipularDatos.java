@@ -80,18 +80,32 @@ public class ManipularDatos {
         {            
         }
     }
-    public void borrarParte(String nombreE, String marca, String nombreF){
+    public int borrarParte(String nombreE, String marca, String nombreF){
         String eliminar = "DELETE FROM parte WHERE nombreE='"+nombreE+"' and marca='"+marca+"' and nombreF='"+nombreF+"';";
+        String consulta = "SELECT * FROM parte WHERE nombreE = '"+nombreE+"' and marca = '"+marca+"' and nombreF ='"+nombreF+"';";
         boolean verificador=verificarParte(nombreE, marca, nombreF);
         try
         {   
             con= enlace.Entrar();
             Statement stmt = con.createStatement();
+            Statement stmt2 = con.createStatement();
+            rs = stmt2.executeQuery(consulta);
+            int cont = 0;
+            while(rs.next())
+                cont++;
+            if(cont==0)
+                return 1;
+            
             if(verificador==true)
-                stmt.executeQuery(eliminar);                                   
+                stmt.executeQuery(eliminar); 
+            else
+                return 2;
+            return 0;
+            
         }
         catch(Exception e)
-        {            
+        {     
+            return 2;
         }
     }
     public boolean verificarParte(String nombreE,String marca,String nombreF){
@@ -107,7 +121,7 @@ public class ManipularDatos {
                 return false;
             }
             else{
-                JOptionPane.showMessageDialog(null,"Parte borrada");
+                
                 return true;
             }
         }
@@ -393,15 +407,20 @@ public class ManipularDatos {
             
         }
     }
-    public boolean agregarParte(String nombreParte,String marca,String nombreFab) throws SQLException{
+    public int agregarParte(String nombreParte,String marca,String nombreFab) throws SQLException{
         String insertar = "insert into parte(nombreE,marca,nombreF) values (?,?,?)";
         try{
            
             con = enlace.Entrar();
-          // Statement stmt = con.createStatement();
-          //  String SQL = "SELECT * FROM automovil WHERE modelo ='" +modelo+"';";
+           Statement stmt = con.createStatement();
+           String SQL = "SELECT * FROM parte WHERE nombreE ='" +nombreParte+"' and marca = '"+marca+"' and nombreF ='"+nombreFab+"';";
             
-          //  rs = stmt.executeQuery(SQL);
+            rs = stmt.executeQuery(SQL);
+            int cont = 0;
+            while(rs.next())
+                cont++;
+            if(cont != 0)
+                return 1;
             
             
            
@@ -413,7 +432,7 @@ public class ManipularDatos {
             
             ps.executeUpdate();
             con.close();
-            return true;
+            return 0;
             
             
             
@@ -421,7 +440,7 @@ public class ManipularDatos {
         catch(Exception e){
             System.out.println("salio mal");
             con.close();
-            return false;
+            return 2;
         }
     }
     public String listarPartes(String modelo, int ano){
@@ -453,11 +472,20 @@ public class ManipularDatos {
         return "";
     }
     
-    public boolean agregarProvedor_Parte(String nombreParte,String marcaParte,String nomFabricante,String nombreProvedor,String direccionProvedor,int precioCosto,int precioParte){
+    public int agregarProvedor_Parte(String nombreParte,String marcaParte,String nomFabricante,String nombreProvedor,String direccionProvedor,int precioCosto,int precioParte){
         String insertar = "insert into venta(precioP,PrecioC,nombreE,direccionE,nombreEP,marcaParte,nomFab) values (?,?,?,?,?,?,?)";
+        String SQL = "SELECT * FROM venta WHERE nombreE = '"+nombreProvedor+"' and direccionE = '"+direccionProvedor+"' and nombreEP = '"+nombreParte+
+                "' and marcaParte = '" +marcaParte+"' and nomFab = '"+nomFabricante+"';";
         
-        con = enlace.Entrar();
         try {
+            con = enlace.Entrar();
+            Statement stmt = con.createStatement();
+            rs = stmt.executeQuery(SQL);
+            int cont =0 ;
+            while(rs.next())
+                cont++;
+            if(cont != 0)
+                return 1;
             ps = con.prepareCall(insertar);
             ps.setInt(1, precioParte);
             ps.setInt(2, precioCosto);
@@ -468,10 +496,10 @@ public class ManipularDatos {
             ps.setString(7, nomFabricante);
             ps.executeUpdate();
             con.close();
-            return true;
+            return 0;
         } catch (SQLException ex) {
             System.out.println("Fallo  en la conexion");
-            return false;
+            return 2;
         }
        
     }
@@ -498,18 +526,27 @@ public class ManipularDatos {
         }
             
     }
-    public boolean asociarAutosPartes(String nombreParte,String marcaParte,String nomFabricante,String modeloAutomovil,String anoAutomovil){
+    public int asociarAutosPartes(String nombreParte,String marcaParte,String nomFabricante,String modeloAutomovil,String anoAutomovil){
         con = enlace.Entrar();
             Statement stmt;
         try {
             stmt = con.createStatement();
+            Statement stmt2 = con.createStatement();
             String SQL = "SELECT * FROM automovil WHERE modelo ='" + modeloAutomovil +"' AND añoF = '"+anoAutomovil+"';" ;
+            
             rs = stmt.executeQuery(SQL);
             int codigoCarro = 0;
             while(rs.next())
                 codigoCarro = rs.getInt(1);
             String insertar = "insert into vehiculosPartes(codigoVehiculo,nombreParte,marcaParte,fabricanteParte) values (?,?,?,?)";
-            
+            String consulta = "SELECT * FROM vehiculoSPartes WHERE codigoVehiculo = '"+ codigoCarro + "' and nombreParte ='"+nombreParte+"' and"
+                    + " marcaParte = '"+marcaParte+"' and fabricanteParte = '"+nomFabricante+"';";
+            rs = stmt2.executeQuery(consulta);
+            int cont = 0;
+            while(rs.next())
+                cont++;
+            if(cont!=0)
+                return 1;
             ps = con.prepareCall(insertar);
             ps.setInt(1,codigoCarro);
             ps.setString(2, nombreParte);
@@ -517,10 +554,10 @@ public class ManipularDatos {
             ps.setString(4, nomFabricante);
             ps.executeUpdate();
             con.close();
-            return true;
+            return 0;
             
         } catch (SQLException ex) {
-           return false;
+           return 2;
         }
             
     }

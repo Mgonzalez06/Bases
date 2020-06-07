@@ -1,6 +1,7 @@
 package Partes;
 
 import Datos.ManipularDatos;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -53,6 +54,11 @@ public class BorrarParte extends javax.swing.JFrame {
         b_eli.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 b_eliMouseClicked(evt);
+            }
+        });
+        b_eli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_eliActionPerformed(evt);
             }
         });
 
@@ -143,12 +149,20 @@ public class BorrarParte extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_t_fabActionPerformed
     private void borrar(){
-        manipulador.borrarParte(t_nom.getText(),t_mar.getText(),t_fab.getText());
+        int accion = manipulador.borrarParte(t_nom.getText(),t_mar.getText(),t_fab.getText());
+        if(accion == 0)
+            JOptionPane.showMessageDialog(null,"Parte borrada con exito");
+        else if(accion == 1)
+            JOptionPane.showMessageDialog(null,"La parte ingresada no existe");
     }
     private void b_eliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_eliMouseClicked
         borrar();
         limpiar();
     }//GEN-LAST:event_b_eliMouseClicked
+
+    private void b_eliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_eliActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_b_eliActionPerformed
 
     /**
      * @param args the command line arguments

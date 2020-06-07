@@ -135,10 +135,13 @@ public class AsociarVehiculoParte extends javax.swing.JFrame {
 
     private void buttonAsociarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAsociarActionPerformed
         // TODO add your handling code here:
-        if(manipulador.asociarAutosPartes(textFieldNomParte.getText(), textFieldMarca.getText(), textFieldnomFab.getText(), textFieldModeloV.getText(), textFieldAno.getText()))
+        int accion = manipulador.asociarAutosPartes(textFieldNomParte.getText(), textFieldMarca.getText(), textFieldnomFab.getText(), textFieldModeloV.getText(), textFieldAno.getText());
+        if(accion == 0)
             JOptionPane.showMessageDialog(this,"Asociacion exitosa","EXITOSO",JOptionPane.QUESTION_MESSAGE);
+        else if(accion ==1)
+            JOptionPane.showMessageDialog(this,"Ha ocurrido un error, esta asociacion ya ha sido creada.","ERROR",JOptionPane.ERROR_MESSAGE);
         else
-            JOptionPane.showMessageDialog(this,"Ha ocurrido un error, verifique que los datos de: PARTE,AUTOMOVIL esten registrados en la base de datos","ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,"Ha ocurrido un error, verifique que los datos de: PARTE y AUTOMOVIL esten registrados en la base de datos","ERROR",JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_buttonAsociarActionPerformed
 
     private void buttonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAtrasActionPerformed

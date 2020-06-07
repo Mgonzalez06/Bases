@@ -46,12 +46,10 @@ public class InsertarParte extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         t_mar = new javax.swing.JTextField();
         t_nom = new javax.swing.JTextField();
         t_nomF = new javax.swing.JTextField();
-        t_aut = new javax.swing.JTextField();
         b_ins = new javax.swing.JButton();
         b_atr = new javax.swing.JButton();
 
@@ -63,8 +61,6 @@ public class InsertarParte extends javax.swing.JFrame {
         jLabel2.setText("Nombre:");
 
         jLabel3.setText("Marca:");
-
-        jLabel4.setText("Automóvil correspondiente:");
 
         jLabel5.setText("Nombre del fabricante:");
 
@@ -92,41 +88,34 @@ public class InsertarParte extends javax.swing.JFrame {
                 b_atrMouseClicked(evt);
             }
         });
+        b_atr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_atrActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addGap(27, 27, 27))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel4)))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(b_atr)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(b_ins))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(t_mar, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel1)))
-                        .addGap(38, 38, 38))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(b_atr)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(b_ins))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(t_nomF, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(t_aut, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(t_mar, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)))
+                    .addComponent(t_nomF, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(196, Short.MAX_VALUE)
@@ -146,13 +135,9 @@ public class InsertarParte extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(t_aut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(t_nomF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                    .addComponent(jLabel5)
+                    .addComponent(t_nomF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(b_ins)
                     .addComponent(b_atr))
@@ -166,33 +151,13 @@ public class InsertarParte extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    void Registrar(){
-        Connection con = coneccion.Entrar();
-        try{
-           String insertar = "insert into parte ('"+t_nom.getText()+"','"+
-                t_mar.getText()+"','"+
-                t_aut.getText()+"','"+
-                t_aut.getText()+"',"+
-                0+",'"+t_nomF.getText()+"',"+
-                0+")";
-            Statement insert = con.createStatement();
-            int registro = insert.executeUpdate(insertar);
-            
-            if(registro>0){
-                
-                JOptionPane.showMessageDialog(this,"Se registro","Bien",JOptionPane.QUESTION_MESSAGE);
-            }
-            else{
-                JOptionPane.showMessageDialog(this,"Se registro","Bien",JOptionPane.ERROR_MESSAGE);     
-            }
-                    }
-        catch(Exception e){
-            
-        }   
-    }
+
     private void b_atrMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_atrMouseClicked
         ventanaP.setVisible(true);
         this.dispose();
+        t_mar.setText(null);
+        t_nom.setText(null);
+        t_nomF.setText(null);
     }//GEN-LAST:event_b_atrMouseClicked
 
     private void t_nomFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_nomFActionPerformed
@@ -206,14 +171,20 @@ public class InsertarParte extends javax.swing.JFrame {
     private void b_insActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_insActionPerformed
         try {
             // TODO add your handling code here:
-            if(manipuladorDatos.agregarParte(t_nom.getText(), t_mar.getText(), t_nomF.getText()))
+            if(manipuladorDatos.agregarParte(t_nom.getText(), t_mar.getText(), t_nomF.getText())==0)
                 JOptionPane.showMessageDialog(this,"Su parte ha sido ingresada con exito","EXITOSO",JOptionPane.QUESTION_MESSAGE);
+            else if(manipuladorDatos.agregarParte(t_nom.getText(), t_mar.getText(), t_nomF.getText())==1)
+                JOptionPane.showMessageDialog(this,"Ha ocurrido un error, la parte ingresada ya esta registrada.","Fallo",JOptionPane.ERROR_MESSAGE);
             else
-                JOptionPane.showMessageDialog(this,"Ha ocurrido un error, tenga en cuenta si los datos ingresados son correctos y estan registrados en la base de datos.","Fallo",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this,"Ha ocurrido un error, el nombre de fabricante debe estar registrado en la base de datos.","Fallo",JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             Logger.getLogger(InsertarParte.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_b_insActionPerformed
+
+    private void b_atrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_atrActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_b_atrActionPerformed
 
     /**
      * @param args the command line arguments
@@ -256,9 +227,7 @@ public class InsertarParte extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField t_aut;
     private javax.swing.JTextField t_mar;
     private javax.swing.JTextField t_nom;
     private javax.swing.JTextField t_nomF;
