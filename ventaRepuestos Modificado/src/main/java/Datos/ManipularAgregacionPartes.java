@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -118,64 +119,85 @@ public class ManipularAgregacionPartes {
         }  
     }
     public boolean verificarProveedor(String nombreP){
-        leerDatosEspecificos("empresaProveedora","nombre",nombreP);
         try{
+            con= enlace.Entrar();
+            Statement stmt = con.createStatement();
+            String SQL = "SELECT nombre FROM empresaProveedora WHERE nombre='"+nombreP+"';";
+            rs = stmt.executeQuery(SQL);
+            if (rs.next()) {
+                return true;  
+            }
+            else
+                return false;
+            
+        }
+      
+        catch (SQLException e) {
+            e.printStackTrace();
+        }      
+       return true;
+    
+    }
+    public boolean buscarPrecioParte(String nombreP,String nombreEP,String marca,String fabricante){
+        boolean verificadorProveedor=verificarProveedor(nombreP);
+        if (verificadorProveedor==true){
+            String leer = "SELECT precioP,precioC"+
+                    " FROM venta WHERE nombreE ='"+nombreP+"' AND nombreEP='"+nombreEP+"' AND marcaParte='"+marca+"' AND nomFab='"+fabricante+"';";
+
+             try
+                {   con= enlace.Entrar();
+                    Statement stmt = con.createStatement();           
+                    rs = stmt.executeQuery(leer);
+                    if(rs.next()){
+                        this.precio=(Math.round(Float.valueOf(rs.getString(1))));
+                        System.err.println(rs.getString(1)+rs.getString(2)+"BUSCANDO EL PRECIO DE LA PARTE");
+                        return true;
+
+                    }
+                    else 
+                        JOptionPane.showMessageDialog(null,"¡No existe la venta para esa parte!");
+                }
+             
+                catch(Exception e)                       
+                {
+
+                }
+        }
+        else 
+            JOptionPane.showMessageDialog(null,"¡No existe proveedor asociado a ese nombre!");
            
-        if (rs.next()) {
-            return true;           
-        }
-        }
-        catch(Exception e){       
-        }   
         return false;
     
     }
-    public boolean buscarPrecioParte(String nombreP,String nombreEP){
-        String leer = "SELECT precioP,precioC"+
-                " FROM venta WHERE nombreE ='"+nombreP+"' AND nombreEP='"+nombreEP+"';";
-        
-         try
-            {   con= enlace.Entrar();
-                Statement stmt = con.createStatement();           
-                rs = stmt.executeQuery(leer);                           
-            }
-            catch(Exception e)                       
-            {
-
-            }
-        try{
-            if(rs.next()){
-                this.precio=(Math.round(Float.valueOf(rs.getString(1))));
-                System.err.println(rs.getString(1)+rs.getString(2)+"BUSCANDO EL PRECIO DE LA PARTE");
-                return true;
-                
-            }            
-        }
-        catch(Exception e){
-            
-        }
-        return false;
-    }
-    public void agregarDetalle(String cantidad,String nombreP,String nombreEP){
+    public boolean agregarDetalle(String cantidad,String nombreP,String nombreEP,String marca,String fabricante){
         String insertar = "insert into detalle(precio,nombreP,cantidadV) values (?,?,?)";
         this.cantidad = cantidad;
-        boolean verificador =buscarPrecioParte(nombreP, nombreEP);   
+        boolean verificadorParte =buscarPrecioParte(nombreP, nombreEP,marca,fabricante);   
         String precioNuevo=String.valueOf(((precio))*(Integer.parseInt(cantidad)));
         
         try
-        {   if(verificador==true){
+        {   
+            if(verificadorParte==true){
                 con = enlace.Entrar(); 
                 ps = con.prepareCall(insertar);     
                 ps.setString(1,precioNuevo);
                 ps.setString(2,nombreP);
                 ps.setString(3, cantidad);
                 ps.executeUpdate(); 
+                JOptionPane.showMessageDialog(null,"¡Parte y detalle agregados a la orden!");
+                return true;
             }
+             
         }
+
+            
+        
+        
         catch(Exception e)
         {
-            System.out.println("Salio mal");
+            
         }  
+        return false;
     }
     public void detalle(){
       

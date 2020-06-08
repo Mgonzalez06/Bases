@@ -472,9 +472,9 @@ public class ManipularDatos {
         return "";
     }
     
-    public int agregarProvedor_Parte(String nombreParte,String marcaParte,String nomFabricante,String nombreProvedor,String direccionProvedor,int precioCosto,int precioParte){
-        String insertar = "insert into venta(precioP,PrecioC,nombreE,direccionE,nombreEP,marcaParte,nomFab) values (?,?,?,?,?,?,?)";
-        String SQL = "SELECT * FROM venta WHERE nombreE = '"+nombreProvedor+"' and direccionE = '"+direccionProvedor+"' and nombreEP = '"+nombreParte+
+    public int agregarProvedor_Parte(String nombreParte,String marcaParte,String nomFabricante,String nombreProvedor,int precioCosto,int precioParte){
+        String insertar = "insert into venta(precioP,PrecioC,nombreE,nombreEP,marcaParte,nomFab) values (?,?,?,?,?,?)";
+        String SQL = "SELECT * FROM venta WHERE nombreE = '"+nombreProvedor+"' and nombreEP = '"+nombreParte+
                 "' and marcaParte = '" +marcaParte+"' and nomFab = '"+nomFabricante+"';";
         
         try {
@@ -490,10 +490,9 @@ public class ManipularDatos {
             ps.setInt(1, precioParte);
             ps.setInt(2, precioCosto);
             ps.setString(3,nombreProvedor);
-            ps.setString(4,direccionProvedor);
-            ps.setString(5,nombreParte);
-            ps.setString(6,marcaParte);
-            ps.setString(7, nomFabricante);
+            ps.setString(4,nombreParte);
+            ps.setString(5,marcaParte);
+            ps.setString(6, nomFabricante);
             ps.executeUpdate();
             con.close();
             return 0;
@@ -504,13 +503,13 @@ public class ManipularDatos {
        
     }
     
-    public boolean cambiarPrecios(String nombreParte,String marcaP,String nomFab,String nombreProvedor,String direccionProvedor,int precioNuevo,boolean decision){  //DECISION = TRUE : PRECIO VENTA....DECISION = FALSE : PRECIO COSTO
+    public boolean cambiarPrecios(String nombreParte,String marcaP,String nomFab,String nombreProvedor,int precioNuevo,boolean decision){  //DECISION = TRUE : PRECIO VENTA....DECISION = FALSE : PRECIO COSTO
         String actualizacion = "";
         if(decision)
-            actualizacion = "UPDATE venta SET precioP= ? WHERE nombreE='"+nombreProvedor+"' AND direccionE ='"+direccionProvedor+"' AND nombreEP ='"+nombreParte+"' AND marcaParte = '"+marcaP +"' AND nomFab = '"+nomFab +"';";
+            actualizacion = "UPDATE venta SET precioP= ? WHERE nombreE='"+nombreProvedor+"' AND nombreEP ='"+nombreParte+"' AND marcaParte = '"+marcaP +"' AND nomFab = '"+nomFab +"';";
         
         else
-            actualizacion = "UPDATE venta SET precioC=? WHERE nombreE='"+nombreProvedor+"' AND direccionE ='"+direccionProvedor+"' AND nombreEP ='"+nombreParte+"' AND marcaParte = '"+marcaP +"' AND nomFab = '"+nomFab +"';";
+            actualizacion = "UPDATE venta SET precioC=? WHERE nombreE='"+nombreProvedor+"' AND nombreEP ='"+nombreParte+"' AND marcaParte = '"+marcaP +"' AND nomFab = '"+nomFab +"';";
         
         
         try {

@@ -35,7 +35,6 @@ public class ActualizarPrecioParte extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         radioButtonPrecioCosto = new javax.swing.JRadioButton();
         radioButtonPrecioVenta = new javax.swing.JRadioButton();
@@ -45,7 +44,6 @@ public class ActualizarPrecioParte extends javax.swing.JFrame {
         buttonFinalizar = new javax.swing.JButton();
         textFieldParte = new javax.swing.JTextField();
         textFieldNomProvedor = new javax.swing.JTextField();
-        textFieldDireccion = new javax.swing.JTextField();
         textFieldMarca = new javax.swing.JTextField();
         textFieldnomFab = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -59,8 +57,6 @@ public class ActualizarPrecioParte extends javax.swing.JFrame {
         jLabel2.setText("Indique el nombre de la parte a modificar:");
 
         jLabel3.setText("Indique el nombre de la empresa provedora:");
-
-        jLabel4.setText("Indique la direccion de la empresa provedora:");
 
         jLabel5.setText("Indique que tipo de precio desea modificar(De acuerdo a la casilla que indique el precio nuevo que tendra):");
 
@@ -82,12 +78,6 @@ public class ActualizarPrecioParte extends javax.swing.JFrame {
             }
         });
 
-        textFieldDireccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldDireccionActionPerformed(evt);
-            }
-        });
-
         jLabel6.setText("Indique la marca de la parte a asociar:");
 
         jLabel7.setText("Nombre del fabricante de la parte:");
@@ -97,49 +87,47 @@ public class ActualizarPrecioParte extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textFieldNomProvedor, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(78, 78, 78)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(textFieldPrecioCosto, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(radioButtonPrecioCosto, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(94, 94, 94)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(textFieldNomProvedor)
-                                    .addComponent(textFieldDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(78, 78, 78)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(textFieldPrecioCosto, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(radioButtonPrecioCosto, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addGap(94, 94, 94)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(radioButtonPrecioVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(textFieldPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(149, 149, 149)
-                            .addComponent(jLabel1))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(150, 150, 150)
-                            .addComponent(buttonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(29, 29, 29)
-                            .addComponent(buttonFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(21, 21, 21)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel2)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(85, 85, 85)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(textFieldMarca)
-                                .addComponent(textFieldParte, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
-                                .addComponent(textFieldnomFab)))))
-                .addContainerGap(18, Short.MAX_VALUE))
+                                    .addComponent(radioButtonPrecioVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(textFieldPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(149, 149, 149)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(150, 150, 150)
+                                .addComponent(buttonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29)
+                                .addComponent(buttonFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(85, 85, 85)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(textFieldMarca)
+                                    .addComponent(textFieldParte, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                                    .addComponent(textFieldnomFab)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel5)))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,13 +153,9 @@ public class ActualizarPrecioParte extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
                     .addComponent(textFieldNomProvedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addComponent(textFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(41, 41, 41)
                 .addComponent(jLabel5)
-                .addGap(18, 18, 18)
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(radioButtonPrecioCosto)
                     .addComponent(radioButtonPrecioVenta))
@@ -189,14 +173,9 @@ public class ActualizarPrecioParte extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textFieldDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldDireccionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldDireccionActionPerformed
-
     private void buttonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        textFieldDireccion.setText(null);
         textFieldMarca.setText(null);
         textFieldNomProvedor.setText(null);
         textFieldParte.setText(null);
@@ -209,13 +188,13 @@ public class ActualizarPrecioParte extends javax.swing.JFrame {
     private void buttonFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFinalizarActionPerformed
         // TODO add your handling code here:
         if(radioButtonPrecioCosto.isSelected()){
-            if(manipulador.cambiarPrecios(textFieldParte.getText(),textFieldMarca.getText(),textFieldnomFab.getText(), textFieldNomProvedor.getText(), textFieldDireccion.getText(), Integer.parseInt(textFieldPrecioCosto.getText()), false))
+            if(manipulador.cambiarPrecios(textFieldParte.getText(),textFieldMarca.getText(),textFieldnomFab.getText(), textFieldNomProvedor.getText(), Integer.parseInt(textFieldPrecioCosto.getText()), false))
                  JOptionPane.showMessageDialog(this,"Actualizacion exitosa","EXITOSO",JOptionPane.QUESTION_MESSAGE);
             else
                  JOptionPane.showMessageDialog(this,"Ha ocurrido un error, verifique que los datos de: PARTE,PROVEDOR esten registrados en la base de datos","ERROR",JOptionPane.ERROR_MESSAGE);
         }
         if(radioButtonPrecioVenta.isSelected()){
-             if(manipulador.cambiarPrecios(textFieldParte.getText(),textFieldMarca.getText(),textFieldnomFab.getText(), textFieldNomProvedor.getText(), textFieldDireccion.getText(), Integer.parseInt(textFieldPrecioVenta.getText()), true))
+             if(manipulador.cambiarPrecios(textFieldParte.getText(),textFieldMarca.getText(),textFieldnomFab.getText(), textFieldNomProvedor.getText(), Integer.parseInt(textFieldPrecioVenta.getText()), true))
                  JOptionPane.showMessageDialog(this,"Actualizacion exitosa","EXITOSO",JOptionPane.QUESTION_MESSAGE);
             else
                  JOptionPane.showMessageDialog(this,"Ha ocurrido un error, verifique que los datos de: PARTE,PROVEDOR esten registrados en la base de datos","ERROR",JOptionPane.ERROR_MESSAGE);
@@ -265,13 +244,11 @@ public class ActualizarPrecioParte extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     public javax.swing.JRadioButton radioButtonPrecioCosto;
     public javax.swing.JRadioButton radioButtonPrecioVenta;
-    public javax.swing.JTextField textFieldDireccion;
     public javax.swing.JTextField textFieldMarca;
     public javax.swing.JTextField textFieldNomProvedor;
     public javax.swing.JTextField textFieldParte;

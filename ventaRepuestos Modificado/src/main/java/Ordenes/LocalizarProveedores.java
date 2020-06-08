@@ -137,18 +137,19 @@ public class LocalizarProveedores extends javax.swing.JFrame {
         ventanaO.setVisible(true);
         this.dispose();
         t_nom.setText("");
+        existentes.setText("");
     }//GEN-LAST:event_atrasMouseClicked
 
     private void examinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_examinarActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_examinarActionPerformed
     private void localizar(){
-        datos.leerDatosEspecificos("venta","nombreEP",t_nom.getText());
-        System.out.println(t_nom.getText());
-        datos.verProveedoresPartes(existentes);
+        existentes.setText("");
+        datos.verProveedoresPartes(existentes,t_nom.getText());
         
     }
     private void examinarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_examinarMouseClicked
+        existentes.setText("");
         localizar();
     }//GEN-LAST:event_examinarMouseClicked
 
@@ -156,6 +157,7 @@ public class LocalizarProveedores extends javax.swing.JFrame {
         ventanaO.setVisible(true);
         this.dispose();
         t_nom.setText("");
+        existentes.setText("");
     }//GEN-LAST:event_okMouseClicked
 
     /**

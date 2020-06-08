@@ -35,7 +35,7 @@ public class ManipularDatosOrdenes {
         this.con=null;
         this.enlace=new Conexion();
     }
-    public void insertarOrden(String fecha,String nombreC){
+    public boolean insertarOrden(String fecha,String nombreC){
         String insertar = "insert into orden(fecha,nombreC,montoVenta,montoIVA) values (?,?,?,?)";
         this.nombreC = nombreC;
         try
@@ -48,20 +48,23 @@ public class ManipularDatosOrdenes {
                 ps = con.prepareCall(insertar);
                 ps.setString(1,fecha);
                 ps.setString(2,nombreC); 
-                ps.setInt(3,0000000000); 
-                ps.setInt(4,0000000000);
+                ps.setString(3,"0000000000.00"); 
+                ps.setInt(4,0);
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(null,"¡Agregue partes!");
+                return true;
                
             }
+           
            
         }
         catch(Exception e)
         {
             
         } 
-        
+        return false;
     }
+    
     
     public void ultimaOrden(){
         try{
@@ -228,7 +231,11 @@ public class ManipularDatosOrdenes {
         }
         catch(Exception e){
             
-        }                     
+        }  
+         
+        JOptionPane.showMessageDialog(null,"¡El cliente no existe!"); 
+                
+         
         return false;
     }   
     public void borrarDatosTablas(String tabla){
@@ -252,8 +259,6 @@ public class ManipularDatosOrdenes {
         try{
             con= enlace.Entrar();
             Statement stmt = con.createStatement();
-            
-
             String SQL = "SELECT * FROM " +tabla+" WHERE "+ atributo+" ='"+dato+"';";
             rs = stmt.executeQuery(SQL);
             
@@ -329,15 +334,24 @@ public class ManipularDatosOrdenes {
             }
         }
     }
-     public void verProveedoresPartes(JTextArea area){
+     public void verProveedoresPartes(JTextArea area,String dato){
         this.areaTexto=area;
+       
         try{
-            fila+="Empresas proveedoras\n\n"+"Nombre                      "+"Dirección                                             \n\n";
+            con= enlace.Entrar();
+            Statement stmt = con.createStatement();
+            String SQL = "SELECT nombreE FROM venta WHERE nombreEP='"+dato+"';";
+            rs = stmt.executeQuery(SQL);        
+            fila+="Empresas proveedoras\n\n"+"Nombre\n\n";
+            areaTexto.setText("");
+            
+          
             while (rs.next()) {
-                fila+=rs.getString(5)+"                      "+rs.getString(6)+"\n";
-                areaTexto.setText(fila);
-                areaTexto.setText(fila);
-            }
+                    fila+=rs.getString(1)+"\n";
+                    areaTexto.setText(fila);
+            } 
+            
+           
             }
         catch(Exception e){
             

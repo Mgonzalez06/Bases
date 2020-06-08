@@ -154,12 +154,11 @@ public class InsertarParteOrden extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     public void agregarParte() throws SQLException{
-        
-        datos.agregarDetalle(t_cant.getText(), t_prov.getText(),t_nom.getText());
-        datos.insertarParteEnOrden(t_nom.getText(),t_marc.getText(),t_fabr.getText());
-        datos.cambiarMontoVentaOrden();
-        datos.actualizarMontoIVA();
-        
+        if(datos.agregarDetalle(t_cant.getText(), t_prov.getText(),t_nom.getText(),t_marc.getText(),t_fabr.getText())){
+            datos.insertarParteEnOrden(t_nom.getText(),t_marc.getText(),t_fabr.getText());
+            datos.cambiarMontoVentaOrden();
+            datos.actualizarMontoIVA();
+        }  
     }
     private void limpiar(){
         t_cant.setText("");

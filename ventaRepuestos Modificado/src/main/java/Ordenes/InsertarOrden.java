@@ -297,9 +297,7 @@ public class InsertarOrden extends javax.swing.JFrame {
     private void crearOrden()
     {
        datos.insertarOrden(t_fec.getText(),t_nom.getText());
-       datos.realizarOrden(t_nom.getText());
-       
-            
+       datos.realizarOrden(t_nom.getText());     
     }
            
      

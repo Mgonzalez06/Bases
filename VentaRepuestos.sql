@@ -44,8 +44,8 @@ create table orden
 numeroC int identity not null,
 fecha date not null,
 montoVenta decimal(10,2),
-montoIVA int,
-montoTotal as montoVenta+ ((montoIVA* montoVenta) /100), 
+montoIVA decimal (10,2),
+montoTotal as montoVenta+montoIVA,--montoVenta+ ((montoIVA* montoVenta) /100), 
 nombreC varchar(50) not null,
 
 CONSTRAINT PKORD PRIMARY KEY(numeroC),
@@ -183,8 +183,8 @@ nombre varchar(30) not null,
 direccion varchar(50) not null,
 ciudad varchar(15) not null,
 nombreCont varchar(50) not null,
-
-CONSTRAINT PKEMP PRIMARY KEY(nombre,direccion)
+telefono int,
+CONSTRAINT PKEMP PRIMARY KEY(nombre)
 )
 
 create table telefonosEmpresa  --TABLA 13
@@ -195,7 +195,7 @@ direccionE varchar(50),
 nombreE varchar(30),
 
 CONSTRAINT PKTELE PRIMARY KEY(numero),
-CONSTRAINT FKTELE FOREIGN KEY(nombreE,direccionE)REFERENCES empresaProveedora(nombre,direccion)
+CONSTRAINT FKTELE FOREIGN KEY(nombreE)REFERENCES empresaProveedora(nombre)
 ON DELETE SET NULL
 ON UPDATE CASCADE,
 
@@ -205,16 +205,16 @@ create table venta    --TABLA 14
 codigo int  identity not null,
 precioP decimal(10,2),
 precioC decimal(10,2) not null,
-porcentajeG as ((precioC-precioP)/precioC)*100,
+porcentajeG as ((precioP-precioC)/precioC)*100,
 
 nombreE varchar(30),
-direccionE varchar(50) ,
+--direccionE varchar(50) ,
 nombreEP varchar(40),
 marcaParte varchar(30),
 nomFab varchar(30),
 
 CONSTRAINT PKVEN PRIMARY KEY(codigo),
-CONSTRAINT FKVENO FOREIGN KEY(nombreE,direccionE) REFERENCES empresaProveedora(nombre,direccion)
+CONSTRAINT FKVENO FOREIGN KEY(nombreE) REFERENCES empresaProveedora(nombre)
 ON DELETE SET NULL
 ON UPDATE CASCADE,
 CONSTRAINT FKFP FOREIGN KEY(nombreEP,marcaParte,nomFab) REFERENCES parte(nombreE,marca,nombreF)
@@ -253,11 +253,11 @@ insert into orden(fecha,nombreC,montoIVA) values ('2020/05/12','Liseth Gonzalez'
 
 insert into venta(precioP,precioC,nombreE,direccionE,nombreEP) values(2000.00,3000.00,'Motociclo','500m oeste Banco Nacional','llanta');
 insert into detalle(precio,nombreP,cantidadV) values(1000.00,'motociclo',2);
-SELECT * FROM persona
-delete from persona
-SELECT * FROM persona WHERE idC IS NOT NULL;
+SELECT * FROM fabricantePartes
+delete from orden
+SELECT * FROM orden
 SELECT * FROM orden where nombreC= 'Juanita Perez' 
-SELECT * FROM detalle
+SELECT * FROM empresaProveedora
 SELECT estado
 	FROM persona,cliente
 	WHERE persona.idC=cliente.id AND persona.nombreC='liseth gonzalez'
@@ -265,7 +265,7 @@ SELECT estado
 	   
 	UPDATE cliente SET estado='SUSPENDIDO' FROM persona,cliente WHERE persona.idC=cliente.id AND persona.cedula=504330070;
               
-SELECT * FROM empresaProveedora
+SELECT * FROM orden
 SELECT * FROM venta WHERE nombreE ='motociclo' AND nombreEP='llanta';
 DELETE FROM realizaOrden
 DELETE FROM relacionRegistroPartes
